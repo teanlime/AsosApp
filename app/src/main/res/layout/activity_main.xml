@@ -18,7 +18,7 @@
         tools:src="@drawable/logo"/>
 
     <ProgressBar
+        style="?attr/indeterminateProgressStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="?attr/indeterminateProgressStyle"/>
+        android:layout_height="wrap_content"/>
 </LinearLayout>
