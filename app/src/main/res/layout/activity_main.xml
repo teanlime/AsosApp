@@ -7,7 +7,7 @@
     android:animateLayoutChanges="true"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.teanlime.asosapp.MainActivity">
+    tools:context=".home.presentation.HomeActivity">
 
     <ImageView
         android:id="@+id/splash_logo"

@@ -1,35 +1,31 @@
-package com.teanlime.asosapp;
+package com.teanlime.asosapp.home.presentation;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.teanlime.asosapp.R;
+import com.teanlime.asosapp.base.presentation.AsosActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AsosActivity {
 
     @BindView(R.id.splash_logo)
     ImageView asosLogo;
 
     @NonNull
     public static Intent createStartIntent(@NonNull Context context) {
-        return new Intent(context, MainActivity.class);
+        return new Intent(context, HomeActivity.class);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO Create dev preference for butterknife debug
-        ButterKnife.setDebug(true);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 
         Glide.with(this).load(Uri.parse("file:///android_asset/logo-splash.gif"))
                 .asBitmap()
@@ -37,4 +33,8 @@ public class MainActivity extends AppCompatActivity {
                 .into(asosLogo);
     }
 
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_main;
+    }
 }
