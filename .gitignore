@@ -1,11 +1,8 @@
 *.iml
 .gradle
 gradle/
-.class
 /local.properties
 /.idea/*
-.DS_Store
 /build
-/captures
 libs/
 proguard-rules.pro
