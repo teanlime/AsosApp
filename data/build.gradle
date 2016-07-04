@@ -3,6 +3,7 @@ apply plugin: 'java'
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile rootProject.libraries.junit
+    compile project(':domain')
     compile rootProject.libraries.gson
     compile rootProject.libraries.retrofit
     compile rootProject.libraries.retrofit_gson
