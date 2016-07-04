@@ -30,6 +30,8 @@ android {
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':data')
+    compile project(':presentation')
     testCompile rootProject.libraries.junit
     compile rootProject.libraries.android_support_v13
     compile rootProject.libraries.android_support_v7
