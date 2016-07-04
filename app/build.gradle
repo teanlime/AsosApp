@@ -36,6 +36,8 @@ dependencies {
     compile rootProject.libraries.android_support_v13
     compile rootProject.libraries.android_support_v7
     compile rootProject.libraries.glide
+    compile rootProject.libraries.rxjava
+    compile rootProject.libraries.rxandroid
     compile rootProject.libraries.butterknife
     apt rootProject.libraries.butterknife_apt
 }
