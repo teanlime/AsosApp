@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'me.tatarka.retrolambda'
 
 android {
     defaultPublishConfig "debug"
@@ -27,7 +25,7 @@ dependencies {
     compile rootProject.libraries.gson
     compile rootProject.libraries.retrofit
     compile rootProject.libraries.retrofit_gson
-    compile rootProject.libraries.android_annotations
+    annotationProcessor rootProject.libraries.android_annotations
     compile rootProject.libraries.rxjava
     compile rootProject.libraries.rxandroid
 }

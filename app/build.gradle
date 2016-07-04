@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion(rootProject.compileSdkVersion as int)
@@ -11,6 +10,9 @@ android {
         targetSdkVersion(rootProject.targetSdkVersion as int)
         versionCode(rootProject.versionCode as int)
         versionName rootProject.versionName
+        jackOptions {
+            enabled true
+        }
     }
     buildTypes {
         debug {
@@ -28,8 +30,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     return true
@@ -45,5 +47,5 @@ dependencies {
     compile rootProject.libraries.rxjava
     compile rootProject.libraries.rxandroid
     compile rootProject.libraries.butterknife
-    apt rootProject.libraries.butterknife_apt
+    annotationProcessor rootProject.libraries.butterknife_apt
 }
