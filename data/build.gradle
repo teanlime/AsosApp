@@ -1,6 +1,10 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
+    defaultPublishConfig "debug"
+
     compileSdkVersion(rootProject.compileSdkVersion as int)
     buildToolsVersion rootProject.buildToolsVersion
 
@@ -8,6 +12,11 @@ android {
         minSdkVersion(rootProject.androidMinApi as int)
         targetSdkVersion(rootProject.targetSdkVersion as int)
         return true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
