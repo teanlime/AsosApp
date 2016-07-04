@@ -2,19 +2,20 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    compileSdkVersion(rootProject.compileSdkVersion as int)
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         applicationId "com.teanlime.asosapp"
-        minSdkVersion 19
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion(rootProject.androidMinApi as int)
+        targetSdkVersion(rootProject.targetSdkVersion as int)
+        versionCode(rootProject.versionCode as int)
+        versionName rootProject.versionName
     }
     buildTypes {
         debug {
             minifyEnabled false
+            shrinkResources false
             applicationIdSuffix ".debug"
             debuggable true
         }
@@ -25,13 +26,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    return true
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-v13:24.0.0'
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.jakewharton:butterknife:8.0.1'
-    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+    testCompile rootProject.libraries.junit
+    compile rootProject.libraries.android_support_v13
+    compile rootProject.libraries.android_support_v7
+    compile rootProject.libraries.glide
+    compile rootProject.libraries.butterknife
+    apt rootProject.libraries.butterknife_apt
 }

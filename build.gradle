@@ -7,6 +7,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.1.2'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
+
+    ext.javaVersion = JavaVersion.VERSION_1_7
 }
 
 allprojects {
@@ -18,3 +20,30 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext.libraries = [
+
+        //Retrofit
+        gson               : 'com.google.code.gson:gson:2.6.2',
+        retrofit           : 'com.squareup.retrofit2:retrofit:2.1.0',
+        retrofit_gson      : 'com.squareup.retrofit2:converter-gson:2.1.0',
+
+        //ReactiveX
+        rxandroid          : 'io.reactivex:rxandroid:1.2.1',
+        rxjava             : 'io.reactivex:rxjava:1.1.6',
+
+        //Testing
+        junit              : 'junit:junit:4.12',
+
+        //Android Support
+        android_support_v13: "com.android.support:support-v13:$buildToolsVersion",
+        android_support_v7 : "com.android.support:appcompat-v7:$buildToolsVersion",
+        android_annotations: "com.android.support:support-annotations:$buildToolsVersion",
+
+        //Glide
+        glide              : 'com.github.bumptech.glide:glide:3.7.0',
+
+        //Butterknife
+        butterknife        : 'com.jakewharton:butterknife:8.0.1',
+        butterknife_apt    : 'com.jakewharton:butterknife-compiler:8.0.1'
+]
