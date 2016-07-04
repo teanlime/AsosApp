@@ -1,4 +1,15 @@
-apply plugin: 'java'
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion(rootProject.compileSdkVersion as int)
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion(rootProject.androidMinApi as int)
+        targetSdkVersion(rootProject.targetSdkVersion as int)
+        return true
+    }
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -7,4 +18,7 @@ dependencies {
     compile rootProject.libraries.gson
     compile rootProject.libraries.retrofit
     compile rootProject.libraries.retrofit_gson
+    compile rootProject.libraries.android_annotations
+    compile rootProject.libraries.rxjava
+    compile rootProject.libraries.rxandroid
 }
