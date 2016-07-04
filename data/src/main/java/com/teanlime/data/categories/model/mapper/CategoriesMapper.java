@@ -1,7 +1,7 @@
 package com.teanlime.data.categories.model.mapper;
 
-import com.teanlime.data.api.ListMapper;
-import com.teanlime.data.api.Mapper;
+import com.teanlime.data.api.mapper.ListMapper;
+import com.teanlime.data.api.mapper.Mapper;
 import com.teanlime.data.categories.model.response.CategoriesModel;
 import com.teanlime.data.categories.model.response.CategoryModel;
 import com.teanlime.domain.categories.model.Categories;

@@ -1,4 +1,4 @@
-package com.teanlime.data.api;
+package com.teanlime.data.api.mapper;
 
 public interface Mapper<SOURCE_MODEL, TARGET_MODEL> {
 

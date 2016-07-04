@@ -1,4 +1,4 @@
-package com.teanlime.data.api;
+package com.teanlime.data.api.mapper;
 
 import java.util.ArrayList;
 import java.util.Collections;
