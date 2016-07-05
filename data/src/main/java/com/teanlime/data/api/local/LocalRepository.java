@@ -1,4 +1,4 @@
-package com.teanlime.data.api.repository.local;
+package com.teanlime.data.api.local;
 
 import com.teanlime.data.api.repository.Repository;
 

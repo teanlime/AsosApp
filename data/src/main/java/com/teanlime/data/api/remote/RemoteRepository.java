@@ -1,4 +1,4 @@
-package com.teanlime.data.api.repository.remote;
+package com.teanlime.data.api.remote;
 
 import com.teanlime.data.api.repository.Repository;
 

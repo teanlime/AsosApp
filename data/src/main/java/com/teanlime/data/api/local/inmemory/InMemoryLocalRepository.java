@@ -1,8 +1,10 @@
-package com.teanlime.data.api.repository.local;
+package com.teanlime.data.api.local.inmemory;
+
+import com.teanlime.data.api.local.LocalRepository;
 
 import rx.Observable;
 
-public class InMemoryRepository<M> implements LocalRepository<M> {
+public class InMemoryLocalRepository<M> implements LocalRepository<M> {
 
     private M data;
 

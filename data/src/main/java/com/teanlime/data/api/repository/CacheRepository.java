@@ -1,8 +1,8 @@
 package com.teanlime.data.api.repository;
 
+import com.teanlime.data.api.local.LocalRepository;
 import com.teanlime.data.api.mapper.Mapper;
-import com.teanlime.data.api.repository.local.LocalRepository;
-import com.teanlime.data.api.repository.remote.RemoteRepository;
+import com.teanlime.data.api.remote.RemoteRepository;
 
 import rx.Observable;
 
