@@ -1,32 +1,34 @@
 package com.teanlime.data.api.usecase;
 
+import com.teanlime.data.api.repository.Repository;
 import com.teanlime.domain.api.usecase.UseCase;
 import com.teanlime.domain.api.usecase.UseCaseCallback;
 
-import rx.Observable;
 import rx.Subscription;
 
-public abstract class RxUseCase<M, E> implements UseCase<M, E> {
+public class RepositoryUseCase<M, E> implements UseCase<M, E> {
 
+    private final UseCaseCallbackDecorator<M, E> useCaseCallbackDecorator;
     private final RxSchedulerFactory schedulerFactory;
+    private final Repository<M> repository;
 
     private Subscription subscription;
 
-    protected RxUseCase(RxSchedulerFactory schedulerFactory) {
+    protected RepositoryUseCase(UseCaseCallbackDecorator<M, E> useCaseCallbackDecorator,
+                                RxSchedulerFactory schedulerFactory,
+                                Repository<M> repository) {
+        this.useCaseCallbackDecorator = useCaseCallbackDecorator;
         this.schedulerFactory = schedulerFactory;
+        this.repository = repository;
     }
 
     @Override
     public void execute(UseCaseCallback<M, E> callback) {
-        subscription = buildObservable()
+        subscription = repository.getData()
                 .subscribeOn(schedulerFactory.getExecutionScheduler())
                 .observeOn(schedulerFactory.getPostExecutionScheduler())
-                .subscribe(buildUseCaseCallbackDecorator(callback));
+                .subscribe(useCaseCallbackDecorator.callback(callback));
     }
-
-    abstract Observable<M> buildObservable();
-
-    abstract UseCaseCallbackDecorator<M, E> buildUseCaseCallbackDecorator(UseCaseCallback callback);
 
     @Override
     public void cancel() {
