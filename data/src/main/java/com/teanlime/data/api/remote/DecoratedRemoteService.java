@@ -13,7 +13,7 @@ public class DecoratedRemoteService implements RemoteService {
     }
 
     @Override
-    public Observable<CategoriesModel> getCategories(String categoriesGroup) {
-        return remoteService.getCategories(categoriesGroup);
+    public Observable<CategoriesModel> getCategories(String categoriesGroupQuery) {
+        return remoteService.getCategories(categoriesGroupQuery);
     }
 }

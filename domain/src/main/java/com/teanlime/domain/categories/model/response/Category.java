@@ -1,4 +1,4 @@
-package com.teanlime.domain.categories.model;
+package com.teanlime.domain.categories.model.response;
 
 public class Category {
 

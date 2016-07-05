@@ -10,7 +10,7 @@ import rx.Observable;
 interface RetrofitRemoteRestService extends RemoteService {
 
     @GET("u/1559445/ASOS/SampleApi/cats_{categories_group}.json")
-    Observable<CategoriesModel> getCategories(@Path("categories_group") String categoriesGroup);
+    Observable<CategoriesModel> getCategories(@Path("categories_group") String categoriesGroupQuery);
 
     //@GET("u/1559445/ASOS/SampleApi/anycat_products.json")
     //Call<List<Product>> getCategoryProducts(@Query("catId") String categoryId);

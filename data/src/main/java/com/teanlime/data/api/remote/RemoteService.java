@@ -6,5 +6,5 @@ import rx.Observable;
 
 public interface RemoteService {
 
-    Observable<CategoriesModel> getCategories(String categoriesGroup);
+    Observable<CategoriesModel> getCategories(String categoriesGroupQuery);
 }

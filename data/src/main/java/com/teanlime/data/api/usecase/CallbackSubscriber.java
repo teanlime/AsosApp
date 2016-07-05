@@ -6,19 +6,19 @@ import com.teanlime.domain.api.usecase.UseCaseCallback;
 
 import rx.Subscriber;
 
-public class UseCaseCallbackDecorator<M, E> extends Subscriber<M> {
+public class CallbackSubscriber<M, E> extends Subscriber<M> {
 
     private final Mapper<Throwable, E> useCaseExceptionMapper;
 
     private UseCaseCallback<M, E> useCaseCallback;
 
-    public UseCaseCallbackDecorator(Mapper<Throwable, E> useCaseExceptionMapper) {
+    public CallbackSubscriber(Mapper<Throwable, E> useCaseExceptionMapper) {
         this.useCaseExceptionMapper = useCaseExceptionMapper;
         this.useCaseCallback = new EmptyUseCaseCallback<>();
     }
 
-    public UseCaseCallbackDecorator<M, E> callback(UseCaseCallback<M, E> useCaseCallback) {
-        this.useCaseCallback = useCaseCallback;
+    public CallbackSubscriber<M, E> callback(UseCaseCallback<M, E> useCaseCallback) {
+        this.useCaseCallback = useCaseCallback == null ? new EmptyUseCaseCallback<>() : useCaseCallback;
         return this;
     }
 

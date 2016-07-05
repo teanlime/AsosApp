@@ -4,8 +4,8 @@ import com.teanlime.data.api.mapper.ListMapper;
 import com.teanlime.data.api.mapper.Mapper;
 import com.teanlime.data.categories.model.response.CategoriesModel;
 import com.teanlime.data.categories.model.response.CategoryModel;
-import com.teanlime.domain.categories.model.Categories;
-import com.teanlime.domain.categories.model.Category;
+import com.teanlime.domain.categories.model.response.Categories;
+import com.teanlime.domain.categories.model.response.Category;
 
 public class CategoriesMapper implements Mapper<CategoriesModel, Categories> {
 
