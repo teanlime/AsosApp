@@ -1,4 +1,4 @@
-package com.teanlime.data.categories.model.mapper;
+package com.teanlime.data.categories.model.response.mapper;
 
 import com.teanlime.data.api.mapper.ListMapper;
 import com.teanlime.data.api.mapper.Mapper;
