@@ -1,7 +1,8 @@
 package com.teanlime.data.api.mapper;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import com.annimon.stream.Stream;
+import com.teanlime.domain.api.util.streams.ImmutableCollectors;
+
 import java.util.List;
 
 public class ListMapper<SOURCE_MODEL, TARGET_MODEL> implements Mapper<List<SOURCE_MODEL>, List<TARGET_MODEL>> {
@@ -14,10 +15,8 @@ public class ListMapper<SOURCE_MODEL, TARGET_MODEL> implements Mapper<List<SOURC
 
     @Override
     public List<TARGET_MODEL> transform(List<SOURCE_MODEL> from) {
-        final List<TARGET_MODEL> to = new ArrayList<>();
-        for (SOURCE_MODEL response : from) {
-            to.add(mapper.transform(response));
-        }
-        return Collections.unmodifiableList(to);
+        return Stream.of(from)
+                .map(mapper::transform)
+                .collect(ImmutableCollectors.toList());
     }
 }
