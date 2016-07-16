@@ -28,5 +28,5 @@ public abstract class AsosFragment extends Fragment {
     }
 
     @LayoutRes
-    public abstract int getLayoutResource();
+    protected abstract int getLayoutResource();
 }

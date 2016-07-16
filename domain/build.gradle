@@ -16,5 +16,7 @@ dependencies {
     compile rootProject.libraries.java_stream_support
 }
 
+//noinspection GroovyUnusedAssignment
 sourceCompatibility = 1.8
+//noinspection GroovyUnusedAssignment
 targetCompatibility = 1.8

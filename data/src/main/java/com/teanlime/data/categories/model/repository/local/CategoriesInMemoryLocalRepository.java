@@ -10,7 +10,7 @@ import rx.Observable;
 
 public class CategoriesInMemoryLocalRepository implements CategoriesLocalRepository {
 
-    private Map<CategoriesGroup, Categories> categoriesMap = new HashMap<>();
+    private final Map<CategoriesGroup, Categories> categoriesMap = new HashMap<>();
 
     @Override
     public void putCategoriesForGroup(CategoriesGroup categoriesGroup, Categories categories) {
