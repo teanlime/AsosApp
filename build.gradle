@@ -4,13 +4,18 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-alpha4'
+        classpath 'com.android.tools.build:gradle:2.2.0-alpha5'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+    }
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xbootclasspath/a:" + System.properties.get("java.home") + "/lib/rt.jar"
+        }
     }
 }
 
@@ -22,6 +27,7 @@ ext.libraries = [
 
         //Retrofit
         gson               : 'com.google.code.gson:gson:2.6.2',
+
         retrofit           : 'com.squareup.retrofit2:retrofit:2.1.0',
         retrofit_gson      : 'com.squareup.retrofit2:converter-gson:2.1.0',
 
