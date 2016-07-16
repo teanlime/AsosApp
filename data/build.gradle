@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath rootProject.libraries.java_lambda_support
     }
 }
 
@@ -39,4 +39,5 @@ dependencies {
     annotationProcessor rootProject.libraries.android_annotations
     compile rootProject.libraries.rxjava
     compile rootProject.libraries.rxandroid
+    compile rootProject.libraries.java_stream_support
 }

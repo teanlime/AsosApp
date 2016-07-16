@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath rootProject.libraries.java_lambda_support
     }
 }
 
@@ -13,6 +13,7 @@ apply plugin: 'me.tatarka.retrolambda'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile rootProject.libraries.java_stream_support
 }
 
 sourceCompatibility = 1.8

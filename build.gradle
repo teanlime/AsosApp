@@ -48,5 +48,9 @@ ext.libraries = [
 
         //Butterknife
         butterknife        : 'com.jakewharton:butterknife:8.0.1',
-        butterknife_apt    : 'com.jakewharton:butterknife-compiler:8.0.1'
+        butterknife_apt    : 'com.jakewharton:butterknife-compiler:8.0.1',
+
+        //Java 8 Support
+        java_lambda_support: 'me.tatarka:gradle-retrolambda:3.2.5',
+        java_stream_support: 'com.annimon:stream:1.1.0'
 ]
