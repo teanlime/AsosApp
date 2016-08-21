@@ -1,5 +1,6 @@
 package com.teanlime.data.categories.usecase;
 
+import com.annimon.stream.Optional;
 import com.teanlime.data.api.usecase.CallbackSubscriber;
 import com.teanlime.data.api.usecase.RepositoryUseCase;
 import com.teanlime.data.api.usecase.RxSchedulerFactory;
@@ -24,7 +25,7 @@ public class GetCategoriesRepositoryUseCase extends RepositoryUseCase<Categories
     }
 
     @Override
-    protected Observable<Categories> getData() {
+    protected Observable<Optional<Categories>> getData() {
         return categoriesRepository.getCategoriesForGroup(categoriesGroup);
     }
 

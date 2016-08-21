@@ -21,13 +21,20 @@ import com.teanlime.data.categories.model.repository.CategoriesRepositoryMediato
 import com.teanlime.data.categories.model.repository.local.CategoriesInMemoryLocalRepository;
 import com.teanlime.data.categories.model.repository.remote.CategoriesRemoteRepository;
 import com.teanlime.data.categories.model.request.mapper.CategoriesGroupMapper;
+import com.teanlime.data.categories.model.response.CategoryModel;
 import com.teanlime.data.categories.model.response.mapper.CategoriesMapper;
 import com.teanlime.data.categories.model.response.mapper.CategoryMapper;
 import com.teanlime.data.categories.usecase.GetCategoriesRepositoryUseCase;
+import com.teanlime.domain.api.util.StringUtils;
 import com.teanlime.domain.categories.model.response.Categories;
+import com.teanlime.domain.categories.model.response.Category;
 import com.teanlime.domain.categories.presentation.CategoriesPresenter;
 import com.teanlime.domain.categories.presentation.CategoriesView;
 import com.teanlime.domain.categories.usecase.GetCategoriesUseCase;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 //import butterknife.BindView;
 
@@ -81,9 +88,30 @@ public class HomeActivity extends AsosActivity implements CategoriesView {
 
     @NonNull
     private CategoriesRemoteRepository provideRemoteCategoriesRepository() {
-        return new CategoriesRemoteRepository(new CategoriesGroupMapper(),
-                new CategoriesMapper(new ListMapper<>(new CategoryMapper())),
-                new DecoratedRetrofitRemoteService(new RetrofitRemoteRestServiceFactory().create()));
+        return new CategoriesRemoteRepository(
+                new CategoriesGroupMapper(),
+                provideCategoriesMapper(),
+                StringUtils.EMPTY,
+                provideDecoratedRetrofitRemoteService());
+    }
+
+    @NonNull
+    private CategoriesMapper provideCategoriesMapper() {
+        return new CategoriesMapper(provideCategoryListMapper(), provideFallbackCategoryList());
+    }
+
+    @NonNull
+    private DecoratedRetrofitRemoteService provideDecoratedRetrofitRemoteService() {
+        return new DecoratedRetrofitRemoteService(new RetrofitRemoteRestServiceFactory().create());
+    }
+
+    @NonNull
+    private ListMapper<CategoryModel, Category> provideCategoryListMapper() {
+        return new ListMapper<>(new CategoryMapper());
+    }
+
+    private List<Category> provideFallbackCategoryList() {
+        return Collections.unmodifiableList(new ArrayList<>());
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.teanlime.data.api.mapper;
 
+import com.annimon.stream.Optional;
+
 public class StringUseCaseExceptionMapper implements Mapper<Throwable, String> {
 
     @Override
-    public String transform(Throwable from) {
-        return from.getLocalizedMessage();
+    public Optional<String> transform(Throwable from) {
+        return Optional.of(from.getLocalizedMessage());
     }
 }

@@ -1,5 +1,6 @@
 package com.teanlime.data.api.usecase;
 
+import com.annimon.stream.Optional;
 import com.teanlime.domain.api.usecase.UseCase;
 import com.teanlime.domain.api.usecase.UseCaseCallback;
 
@@ -28,14 +29,14 @@ public abstract class RepositoryUseCase<M, E> implements UseCase<M, E> {
                 .doOnCompleted(new Action0() {
                     @Override
                     public void call() {
-                        callbackSubscriber.callback(null);
+                        callbackSubscriber.removeCallback();
                     }
                 })
                 //.doOnCompleted(() -> callbackSubscriber.callback(null))
                 .subscribe(callbackSubscriber.callback(callback));
     }
 
-    protected abstract Observable<M> getData();
+    protected abstract Observable<Optional<M>> getData();
 
     @Override
     public void cancel() {

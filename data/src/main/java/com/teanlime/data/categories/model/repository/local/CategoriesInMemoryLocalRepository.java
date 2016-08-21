@@ -1,5 +1,6 @@
 package com.teanlime.data.categories.model.repository.local;
 
+import com.annimon.stream.Optional;
 import com.teanlime.domain.categories.model.request.CategoriesGroup;
 import com.teanlime.domain.categories.model.response.Categories;
 
@@ -23,10 +24,10 @@ public class CategoriesInMemoryLocalRepository implements CategoriesLocalReposit
     }
 
     @Override
-    public Observable<Categories> getCategoriesForGroup(CategoriesGroup categoriesGroup) {
+    public Observable<Optional<Categories>> getCategoriesForGroup(final CategoriesGroup categoriesGroup) {
         return Observable.create(subscriber -> {
             if (hasCategoriesForGroup(categoriesGroup)) {
-                subscriber.onNext(categoriesMap.get(categoriesGroup));
+                subscriber.onNext(Optional.of(categoriesMap.get(categoriesGroup)));
                 subscriber.onCompleted();
             } else {
                 subscriber.onError(new NullPointerException("Data is null!"));

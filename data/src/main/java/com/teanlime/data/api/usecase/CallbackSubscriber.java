@@ -1,12 +1,13 @@
 package com.teanlime.data.api.usecase;
 
+import com.annimon.stream.Optional;
 import com.teanlime.data.api.mapper.Mapper;
 import com.teanlime.domain.api.usecase.EmptyUseCaseCallback;
 import com.teanlime.domain.api.usecase.UseCaseCallback;
 
 import rx.Subscriber;
 
-public class CallbackSubscriber<M, E> extends Subscriber<M> {
+public class CallbackSubscriber<M, E> extends Subscriber<Optional<M>> {
 
     private final Mapper<Throwable, E> useCaseExceptionMapper;
 
@@ -14,6 +15,10 @@ public class CallbackSubscriber<M, E> extends Subscriber<M> {
 
     public CallbackSubscriber(Mapper<Throwable, E> useCaseExceptionMapper) {
         this.useCaseExceptionMapper = useCaseExceptionMapper;
+        this.useCaseCallback = new EmptyUseCaseCallback<>();
+    }
+
+    public void removeCallback() {
         this.useCaseCallback = new EmptyUseCaseCallback<>();
     }
 
@@ -28,15 +33,16 @@ public class CallbackSubscriber<M, E> extends Subscriber<M> {
     }
 
     @Override
-    public void onNext(M model) {
-        if (model == null) {
+    public void onNext(Optional<M> model) {
+        if (model.isPresent()) {
+            useCaseCallback.onNext(model.get());
+        } else {
             onError(new NullPointerException("Model is null"));
         }
-        useCaseCallback.onNext(model);
     }
 
     @Override
-    public void onError(Throwable e) {
-        useCaseCallback.onError(useCaseExceptionMapper.transform(e));
+    public void onError(Throwable error) {
+        useCaseExceptionMapper.transform(error).ifPresent(message -> useCaseCallback.onError(message));
     }
 }

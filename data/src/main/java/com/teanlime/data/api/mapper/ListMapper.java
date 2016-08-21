@@ -1,5 +1,6 @@
 package com.teanlime.data.api.mapper;
 
+import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
 import com.teanlime.domain.api.util.streams.ImmutableCollectors;
 
@@ -16,9 +17,15 @@ public class ListMapper<SOURCE_MODEL, TARGET_MODEL> implements Mapper<List<SOURC
     }
 
     @Override
-    public List<TARGET_MODEL> transform(List<SOURCE_MODEL> from) {
-        return Stream.of(from)
+    public Optional<List<TARGET_MODEL>> transform(List<SOURCE_MODEL> from) {
+        if (from == null) {
+            return Optional.empty();
+        }
+        final List<TARGET_MODEL> to = Stream.of(from)
                 .map(listItemMapper::transform)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(ImmutableCollectors.toList());
+        return Optional.of(to);
     }
 }

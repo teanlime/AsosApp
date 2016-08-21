@@ -1,5 +1,7 @@
 package com.teanlime.data.categories.model.repository;
 
+import com.annimon.stream.Optional;
+import com.annimon.stream.function.Consumer;
 import com.teanlime.data.categories.model.repository.local.CategoriesLocalRepository;
 import com.teanlime.domain.categories.model.request.CategoriesGroup;
 import com.teanlime.domain.categories.model.response.Categories;
@@ -20,20 +22,23 @@ public class CategoriesRepositoryMediator implements CategoriesRepository {
     }
 
     @Override
-    public Observable<Categories> getCategoriesForGroup(CategoriesGroup categoriesGroup) {
+    public Observable<Optional<Categories>> getCategoriesForGroup(final CategoriesGroup categoriesGroup) {
         if (localCategoriesRepository.hasCategoriesForGroup(categoriesGroup)) {
             return localCategoriesRepository.getCategoriesForGroup(categoriesGroup);
         } else {
             // TODO #92 Issue with Jack, cannot use Lambda if using class variable
             return remoteCategoriesRepository.getCategoriesForGroup(categoriesGroup)
-                    .doOnNext(new Action1<Categories>() {
+                    .doOnNext(new Action1<Optional<Categories>>() {
                         @Override
-                        public void call(Categories categories) {
-                            localCategoriesRepository.putCategoriesForGroup(categoriesGroup, categories);
+                        public void call(Optional<Categories> categoriesOptional) {
+                            categoriesOptional.ifPresent(new Consumer<Categories>() {
+                                @Override
+                                public void accept(Categories categories) {
+                                    localCategoriesRepository.putCategoriesForGroup(categoriesGroup, categories);
+                                }
+                            });
                         }
                     });
-            //.doOnNext(categories -> localCategoriesRepository.putCategoriesForGroup(categoriesGroup,
-            //categories));
         }
     }
 }
