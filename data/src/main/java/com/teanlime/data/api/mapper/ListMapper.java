@@ -8,6 +8,13 @@ import java.util.List;
 
 import static com.teanlime.domain.api.util.Validate.nonNull;
 
+/**
+ * Converts a list of objects of a given type to a list of objects or another type
+ * This mapper removes null items
+ *
+ * @param <SOURCE_MODEL> the type of the original list
+ * @param <TARGET_MODEL> the type for the new converted list
+ */
 public class ListMapper<SOURCE_MODEL, TARGET_MODEL> implements Mapper<List<SOURCE_MODEL>, List<TARGET_MODEL>> {
 
     private final Mapper<SOURCE_MODEL, TARGET_MODEL> listItemMapper;
@@ -18,14 +25,17 @@ public class ListMapper<SOURCE_MODEL, TARGET_MODEL> implements Mapper<List<SOURC
 
     @Override
     public Optional<List<TARGET_MODEL>> map(List<SOURCE_MODEL> from) {
-        if (from == null) {
+        if (from == null || from.isEmpty()) {
             return Optional.empty();
         }
-        final List<TARGET_MODEL> to = Stream.of(from)
+
+        final List<TARGET_MODEL> target = Stream.of(from)
+                .filter(toBeMapped -> toBeMapped != null)
                 .map(listItemMapper::map)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(ImmutableCollectors.toList());
-        return Optional.of(to);
+
+        return target.size() == 0 ? Optional.empty() : Optional.of(target);
     }
 }
