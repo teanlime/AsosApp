@@ -38,6 +38,7 @@ ext.libraries = [
 
         //Testing
         junit              : 'junit:junit:4.12',
+        mockito            : 'org.mockito:mockito-all:2.0.2-beta',
 
         //Android Support
         android_support_v13: "com.android.support:support-v13:$buildToolsVersion",
@@ -53,5 +54,5 @@ ext.libraries = [
 
         //Java 8 Support
         java_lambda_support: 'me.tatarka:gradle-retrolambda:3.3.0-beta4',
-        java_stream_support: 'com.annimon:stream:1.1.0'
+        java_stream_support: 'com.annimon:stream:1.1.0',
 ]

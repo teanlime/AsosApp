@@ -42,4 +42,5 @@ dependencies {
 
     annotationProcessor rootProject.libraries.android_annotations
     testCompile rootProject.libraries.junit
+    testCompile rootProject.libraries.mockito
 }
