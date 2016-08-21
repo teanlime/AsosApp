@@ -43,6 +43,6 @@ public class CallbackSubscriber<M, E> extends Subscriber<Optional<M>> {
 
     @Override
     public void onError(Throwable error) {
-        useCaseExceptionMapper.transform(error).ifPresent(message -> useCaseCallback.onError(message));
+        useCaseExceptionMapper.map(error).ifPresent(message -> useCaseCallback.onError(message));
     }
 }

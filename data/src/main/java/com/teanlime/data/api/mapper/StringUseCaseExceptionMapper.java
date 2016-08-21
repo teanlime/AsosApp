@@ -5,7 +5,7 @@ import com.annimon.stream.Optional;
 public class StringUseCaseExceptionMapper implements Mapper<Throwable, String> {
 
     @Override
-    public Optional<String> transform(Throwable from) {
+    public Optional<String> map(Throwable from) {
         return Optional.of(from.getLocalizedMessage());
     }
 }

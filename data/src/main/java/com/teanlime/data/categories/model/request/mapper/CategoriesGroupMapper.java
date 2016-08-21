@@ -10,7 +10,7 @@ public class CategoriesGroupMapper implements Mapper<CategoriesGroup, String> {
     private static final String MEN_PATH = "men";
 
     @Override
-    public Optional<String> transform(CategoriesGroup from) {
+    public Optional<String> map(CategoriesGroup from) {
         if (from == null) {
             return Optional.empty();
         }

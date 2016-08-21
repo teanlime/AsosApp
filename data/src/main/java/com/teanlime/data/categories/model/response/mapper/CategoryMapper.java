@@ -8,7 +8,7 @@ import com.teanlime.domain.categories.model.response.Category;
 public class CategoryMapper implements Mapper<CategoryModel, Category> {
 
     @Override
-    public Optional<Category> transform(CategoryModel from) {
+    public Optional<Category> map(CategoryModel from) {
         if (from == null) {
             return Optional.empty();
         }

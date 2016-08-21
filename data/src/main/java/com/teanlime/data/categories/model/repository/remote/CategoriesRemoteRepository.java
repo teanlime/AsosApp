@@ -30,8 +30,8 @@ public class CategoriesRemoteRepository implements CategoriesRepository {
 
     @Override
     public Observable<Optional<Categories>> getCategoriesForGroup(CategoriesGroup categoriesGroup) {
-        return service.getCategories(categoriesGroupQueryMapper.transform(categoriesGroup).orElse(fallbackCategoryGroup))
-                .map(responseMapper::transform);
+        return service.getCategories(categoriesGroupQueryMapper.map(categoriesGroup).orElse(fallbackCategoryGroup))
+                .map(responseMapper::map);
     }
 }
 

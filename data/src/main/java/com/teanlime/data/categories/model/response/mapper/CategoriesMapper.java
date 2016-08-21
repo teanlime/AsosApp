@@ -23,13 +23,13 @@ public class CategoriesMapper implements Mapper<CategoriesModel, Categories> {
     }
 
     @Override
-    public Optional<Categories> transform(CategoriesModel categoriesModel) {
+    public Optional<Categories> map(CategoriesModel categoriesModel) {
         if (categoriesModel == null) {
             return Optional.empty();
         }
         return Optional.of(new Categories(
                 categoriesModel.getDescription(),
-                categoryListMapper.transform(categoriesModel.getListing()).orElse(fallbackCategoryList),
+                categoryListMapper.map(categoriesModel.getListing()).orElse(fallbackCategoryList),
                 categoriesModel.getSortType()));
     }
 }

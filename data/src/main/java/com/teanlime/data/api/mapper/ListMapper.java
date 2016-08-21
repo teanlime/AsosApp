@@ -17,12 +17,12 @@ public class ListMapper<SOURCE_MODEL, TARGET_MODEL> implements Mapper<List<SOURC
     }
 
     @Override
-    public Optional<List<TARGET_MODEL>> transform(List<SOURCE_MODEL> from) {
+    public Optional<List<TARGET_MODEL>> map(List<SOURCE_MODEL> from) {
         if (from == null) {
             return Optional.empty();
         }
         final List<TARGET_MODEL> to = Stream.of(from)
-                .map(listItemMapper::transform)
+                .map(listItemMapper::map)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(ImmutableCollectors.toList());
