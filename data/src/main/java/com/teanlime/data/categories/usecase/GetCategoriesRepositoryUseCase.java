@@ -16,9 +16,9 @@ public class GetCategoriesRepositoryUseCase extends RepositoryUseCase<Categories
 
     private CategoriesGroup categoriesGroup;
 
-    protected GetCategoriesRepositoryUseCase(CallbackSubscriber<Categories, String> callbackSubscriber,
-                                             CategoriesRepository categoriesRepository,
-                                             RxSchedulerFactory schedulerFactory) {
+    public GetCategoriesRepositoryUseCase(CallbackSubscriber<Categories, String> callbackSubscriber,
+                                          CategoriesRepository categoriesRepository,
+                                          RxSchedulerFactory schedulerFactory) {
         super(callbackSubscriber, schedulerFactory);
         this.categoriesRepository = categoriesRepository;
     }
@@ -29,7 +29,8 @@ public class GetCategoriesRepositoryUseCase extends RepositoryUseCase<Categories
     }
 
     @Override
-    public void categoriesGroup(CategoriesGroup categoriesGroup) {
+    public GetCategoriesUseCase categoriesGroup(CategoriesGroup categoriesGroup) {
         this.categoriesGroup = categoriesGroup;
+        return this;
     }
 }

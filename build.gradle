@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-alpha5'
+        classpath 'com.android.tools.build:gradle:2.2.0-beta1'
     }
 }
 
@@ -26,14 +26,15 @@ task clean(type: Delete) {
 ext.libraries = [
 
         //Retrofit
-        gson               : 'com.google.code.gson:gson:2.6.2',
+        gson               : 'com.google.code.gson:gson:2.6.1',
 
-        retrofit           : 'com.squareup.retrofit2:retrofit:2.1.0',
-        retrofit_gson      : 'com.squareup.retrofit2:converter-gson:2.1.0',
+        retrofit           : 'com.squareup.retrofit2:retrofit:2.0.0',
+        retrofit_adapter   : 'com.squareup.retrofit2:adapter-rxjava:2.0.0',
+        retrofit_gson      : 'com.squareup.retrofit2:converter-gson:2.0.0',
 
         //ReactiveX
-        rxandroid          : 'io.reactivex:rxandroid:1.2.1',
-        rxjava             : 'io.reactivex:rxjava:1.1.6',
+        rxandroid          : 'io.reactivex:rxandroid:1.1.0',
+        rxjava             : 'io.reactivex:rxjava:1.1.1',
 
         //Testing
         junit              : 'junit:junit:4.12',
@@ -47,10 +48,10 @@ ext.libraries = [
         glide              : 'com.github.bumptech.glide:glide:3.7.0',
 
         //Butterknife
-        butterknife        : 'com.jakewharton:butterknife:8.0.1',
-        butterknife_apt    : 'com.jakewharton:butterknife-compiler:8.0.1',
+        butterknife        : 'com.jakewharton:butterknife:8.2.1',
+        butterknife_apt    : 'com.jakewharton:butterknife-compiler:8.2.1',
 
         //Java 8 Support
-        java_lambda_support: 'me.tatarka:gradle-retrolambda:3.2.5',
+        java_lambda_support: 'me.tatarka:gradle-retrolambda:3.3.0-beta4',
         java_stream_support: 'com.annimon:stream:1.1.0'
 ]

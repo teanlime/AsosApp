@@ -23,4 +23,13 @@ public class Category {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "productCount=" + productCount +
+                ", categoryId='" + categoryId + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

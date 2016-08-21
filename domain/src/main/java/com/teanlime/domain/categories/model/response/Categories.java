@@ -25,4 +25,13 @@ public class Categories {
     public String getSortType() {
         return sortType;
     }
+
+    @Override
+    public String toString() {
+        return "Categories{" +
+                "listing=" + listing +
+                ", description='" + description + '\'' +
+                ", sortType='" + sortType + '\'' +
+                '}';
+    }
 }

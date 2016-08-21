@@ -31,13 +31,15 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile rootProject.libraries.junit
     compile project(':domain')
-    compile rootProject.libraries.gson
-    compile rootProject.libraries.retrofit
-    compile rootProject.libraries.retrofit_gson
-    annotationProcessor rootProject.libraries.android_annotations
-    compile rootProject.libraries.rxjava
-    compile rootProject.libraries.rxandroid
     compile rootProject.libraries.java_stream_support
+    compile rootProject.libraries.retrofit_adapter
+    compile rootProject.libraries.retrofit_gson
+    compile rootProject.libraries.rxandroid
+    compile rootProject.libraries.retrofit
+    compile rootProject.libraries.rxjava
+    compile rootProject.libraries.gson
+
+    annotationProcessor rootProject.libraries.android_annotations
+    testCompile rootProject.libraries.junit
 }
