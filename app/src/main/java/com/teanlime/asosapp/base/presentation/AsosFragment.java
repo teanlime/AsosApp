@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.ButterKnife;
-
 /**
  * Base fragment for shared components
  */
@@ -23,7 +21,7 @@ public abstract class AsosFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         final View fragmentView = inflater.inflate(getLayoutResource(), container);
-        ButterKnife.bind(fragmentView);
+        //ButterKnife.bind(fragmentView);
         return fragmentView;
     }
 

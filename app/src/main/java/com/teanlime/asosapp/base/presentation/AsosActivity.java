@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.teanlime.asosapp.R;
 
-import butterknife.ButterKnife;
-
 /**
  * Base activity for shared components
  */
@@ -20,7 +18,7 @@ public abstract class AsosActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
-        ButterKnife.bind(this);
+        //ButterKnife.bind(this);
     }
 
     @LayoutRes
