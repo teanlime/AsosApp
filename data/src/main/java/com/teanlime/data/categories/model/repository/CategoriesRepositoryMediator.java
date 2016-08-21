@@ -5,6 +5,7 @@ import com.teanlime.domain.categories.model.request.CategoriesGroup;
 import com.teanlime.domain.categories.model.response.Categories;
 
 import rx.Observable;
+import rx.functions.Action1;
 
 public class CategoriesRepositoryMediator implements CategoriesRepository {
 
@@ -23,8 +24,16 @@ public class CategoriesRepositoryMediator implements CategoriesRepository {
         if (localCategoriesRepository.hasCategoriesForGroup(categoriesGroup)) {
             return localCategoriesRepository.getCategoriesForGroup(categoriesGroup);
         } else {
+            // TODO #92 Issue with Jack, cannot use Lambda if using class variable
             return remoteCategoriesRepository.getCategoriesForGroup(categoriesGroup)
-                    .doOnNext(categories -> localCategoriesRepository.putCategoriesForGroup(categoriesGroup, categories));
+                    .doOnNext(new Action1<Categories>() {
+                        @Override
+                        public void call(Categories categories) {
+                            localCategoriesRepository.putCategoriesForGroup(categoriesGroup, categories);
+                        }
+                    });
+            //.doOnNext(categories -> localCategoriesRepository.putCategoriesForGroup(categoriesGroup,
+            //categories));
         }
     }
 }

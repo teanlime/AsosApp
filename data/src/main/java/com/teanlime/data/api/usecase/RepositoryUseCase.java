@@ -5,6 +5,7 @@ import com.teanlime.domain.api.usecase.UseCaseCallback;
 
 import rx.Observable;
 import rx.Subscription;
+import rx.functions.Action0;
 
 public abstract class RepositoryUseCase<M, E> implements UseCase<M, E> {
 
@@ -24,7 +25,13 @@ public abstract class RepositoryUseCase<M, E> implements UseCase<M, E> {
         subscription = getData()
                 .subscribeOn(schedulerFactory.getExecutionScheduler())
                 .observeOn(schedulerFactory.getPostExecutionScheduler())
-                .doOnCompleted(() -> callbackSubscriber.callback(null))
+                .doOnCompleted(new Action0() {
+                    @Override
+                    public void call() {
+                        callbackSubscriber.callback(null);
+                    }
+                })
+                //.doOnCompleted(() -> callbackSubscriber.callback(null))
                 .subscribe(callbackSubscriber.callback(callback));
     }
 
