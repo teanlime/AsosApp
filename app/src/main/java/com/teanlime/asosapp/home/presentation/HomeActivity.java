@@ -25,6 +25,7 @@ import com.teanlime.data.categories.model.response.CategoryModel;
 import com.teanlime.data.categories.model.response.mapper.CategoriesMapper;
 import com.teanlime.data.categories.model.response.mapper.CategoryMapper;
 import com.teanlime.data.categories.usecase.GetCategoriesRepositoryUseCase;
+import com.teanlime.domain.api.usecase.EmptyUseCaseCallback;
 import com.teanlime.domain.api.util.StringUtils;
 import com.teanlime.domain.categories.model.response.Categories;
 import com.teanlime.domain.categories.model.response.Category;
@@ -77,7 +78,7 @@ public class HomeActivity extends AsosActivity implements CategoriesView {
 
     @NonNull
     private CallbackSubscriber<Categories, String> provideCallbackSubscriber() {
-        return new CallbackSubscriber<>(new StringUseCaseExceptionMapper());
+        return new CallbackSubscriber<>(new EmptyUseCaseCallback<>(), new StringUseCaseExceptionMapper());
     }
 
     private CategoriesRepositoryMediator provideCategoriesRepositoryMediator() {
