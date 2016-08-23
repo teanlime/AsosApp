@@ -17,6 +17,7 @@ import com.teanlime.data.api.mapper.StringUseCaseExceptionMapper;
 import com.teanlime.data.api.remote.DecoratedRetrofitRemoteService;
 import com.teanlime.data.api.remote.rest.retrofit.RetrofitRemoteRestServiceFactory;
 import com.teanlime.data.api.usecase.CallbackSubscriber;
+import com.teanlime.data.api.usecase.RxUseCaseSubscription;
 import com.teanlime.data.categories.model.repository.CategoriesRepositoryMediator;
 import com.teanlime.data.categories.model.repository.local.CategoriesInMemoryLocalRepository;
 import com.teanlime.data.categories.model.repository.remote.CategoriesRemoteRepository;
@@ -71,9 +72,8 @@ public class HomeActivity extends AsosActivity implements CategoriesView {
 
     private GetCategoriesUseCase provideGetCategoriesUseCase() {
         return new GetCategoriesRepositoryUseCase(
-                provideCallbackSubscriber(),
-                provideCategoriesRepositoryMediator(),
-                new AndroidRxSchedulerFactory());
+                new RxUseCaseSubscription<>(provideCallbackSubscriber(), new AndroidRxSchedulerFactory()),
+                provideCategoriesRepositoryMediator());
     }
 
     @NonNull
