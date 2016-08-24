@@ -14,6 +14,7 @@ import static com.teanlime.domain.api.util.Validate.nonNull;
  * instead.
  * Handles successes and errors of specified types, which are Optional.
  * Handles empty response as error
+ * Once onCompleete is called, it removes reference to the previous callback
  *
  * @param <M> Model type
  * @param <E> Exception type
