@@ -45,20 +45,13 @@ public class CallbackSubscriber<M, E> extends Subscriber<Optional<M>> {
         return this;
     }
 
-
-    /**
-     * Nullifies the reference of the UseCaseCallback
-     */
-    public void removeCallback() {
-        this.useCaseCallback = emptyUseCaseCallback;
-    }
-
     /**
      * RxJava Subscriber implementation. Delegates to UseCaseCallback
      */
     @Override
     public void onCompleted() {
         useCaseCallback.onCompleted();
+        useCaseCallback = emptyUseCaseCallback;
     }
 
     /**

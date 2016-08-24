@@ -135,20 +135,18 @@ public class CallbackSubscriberShould {
     @Test
     public void use_emptyUseCaseCallback_when_removing_callback() {
         // given
-        final CallbackSubscriber<String, String> callbackSubscriber = givenCallSubscriberWithRemovedCallback();
+        final CallbackSubscriber<String, String> callbackSubscriber = givenCallbackSubscriberWithRealCallback();
 
         // when
         callbackSubscriber.onCompleted();
+        callbackSubscriber.onCompleted();
 
         // then
+        // Real use case used first time
+        verify(realUseCaseCallback).onCompleted();
+        // Empty use case used next time
         verify(emptyUseCaseCallback).onCompleted();
         verifyNoMoreInteractions(emptyUseCaseCallback);
-        verifyZeroInteractions(realUseCaseCallback);
-    }
-
-    private CallbackSubscriber<String, String> givenCallSubscriberWithRemovedCallback() {
-        callbackSubscriber.callback(realUseCaseCallback).removeCallback();
-        return callbackSubscriber;
     }
 
     @Test
