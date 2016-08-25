@@ -101,7 +101,7 @@ public class CategoriesInMemoryLocalRepositoryShould {
     public void erase_a_category_correctly() {
         // given
         repository.putCategoriesForGroup(CategoriesGroup.MEN, menCategories);
-        repository.hasCategoriesForGroup(CategoriesGroup.MEN);
+        assertThat(repository.hasCategoriesForGroup(CategoriesGroup.MEN), is(true));
 
         // when
         repository.eraseCategoryForGroup(CategoriesGroup.MEN);
