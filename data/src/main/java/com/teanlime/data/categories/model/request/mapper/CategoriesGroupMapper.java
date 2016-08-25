@@ -4,6 +4,9 @@ import com.annimon.stream.Optional;
 import com.teanlime.data.api.mapper.Mapper;
 import com.teanlime.domain.categories.model.request.CategoriesGroup;
 
+/**
+ * Mapps CategoriesGroup enum to categories group string path
+ */
 public class CategoriesGroupMapper implements Mapper<CategoriesGroup, String> {
 
     private static final String WOMEN_PATH = "women";
