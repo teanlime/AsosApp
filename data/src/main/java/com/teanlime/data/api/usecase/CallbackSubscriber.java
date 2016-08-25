@@ -41,7 +41,7 @@ public class CallbackSubscriber<M, E> extends Subscriber<Optional<M>> {
      * @param useCaseCallback new callback
      * @return this
      */
-    public CallbackSubscriber<M, E> callback(UseCaseCallback<M, E> useCaseCallback) {
+    public Subscriber<Optional<M>> callback(UseCaseCallback<M, E> useCaseCallback) {
         this.useCaseCallback = useCaseCallback == null ? emptyUseCaseCallback : useCaseCallback;
         return this;
     }

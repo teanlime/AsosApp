@@ -28,6 +28,12 @@ public class RxUseCaseSubscription<M, E> {
         this.schedulerFactory = nonNull(schedulerFactory);
     }
 
+    /**
+     * Subscribes to the observable on a specified threads and ads external callback
+     *
+     * @param observable observable to be subscribed on
+     * @param callback   external callback
+     */
     public void subscribe(Observable<Optional<M>> observable, UseCaseCallback<M, E> callback) {
         subscription = observable
                 .subscribeOn(schedulerFactory.getExecutionScheduler())
@@ -35,6 +41,9 @@ public class RxUseCaseSubscription<M, E> {
                 .subscribe(callbackSubscriber.callback(callback));
     }
 
+    /**
+     * Cancels running subscription, if any
+     */
     public void cancel() {
         if (subscription == null || subscription.isUnsubscribed()) {
             return;

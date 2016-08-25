@@ -13,6 +13,8 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
+import rx.Subscriber;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
@@ -88,10 +90,10 @@ public class CallbackSubscriberShould {
     @Test
     public void use_emptyUseCaseCallback_when_setting_null_callback() {
         // given
-        final CallbackSubscriber<String, String> callbackSubscriber = givenCallbackSubscriberWithNullCallbackSet();
+        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithNullCallbackSet();
 
         // when
-        callbackSubscriber.onCompleted();
+        subscriber.onCompleted();
 
         // then
         verify(emptyUseCaseCallback).onCompleted();
@@ -99,17 +101,17 @@ public class CallbackSubscriberShould {
         verifyZeroInteractions(realUseCaseCallback);
     }
 
-    private CallbackSubscriber<String, String> givenCallbackSubscriberWithNullCallbackSet() {
+    private Subscriber<Optional<String>> givenCallbackSubscriberWithNullCallbackSet() {
         return callbackSubscriber.callback(null);
     }
 
     @Test
     public void set_new_callback_correctly() {
         // given
-        final CallbackSubscriber<String, String> callbackSubscriber = givenCallbackSubscriberWithRealCallback();
+        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
 
         // when
-        callbackSubscriber.onCompleted();
+        subscriber.onCompleted();
 
         // then
         verify(realUseCaseCallback).onCompleted();
@@ -117,7 +119,7 @@ public class CallbackSubscriberShould {
         verifyZeroInteractions(emptyUseCaseCallback);
     }
 
-    private CallbackSubscriber<String, String> givenCallbackSubscriberWithRealCallback() {
+    private Subscriber<Optional<String>> givenCallbackSubscriberWithRealCallback() {
         return callbackSubscriber.callback(realUseCaseCallback);
     }
 
@@ -125,7 +127,7 @@ public class CallbackSubscriberShould {
     @Test
     public void return_this_correctly_in_callback() {
         // when
-        final CallbackSubscriber returnedCallbackSubscriber = callbackSubscriber.callback(realUseCaseCallback);
+        final Subscriber returnedCallbackSubscriber = callbackSubscriber.callback(realUseCaseCallback);
 
         // then
         assertThat(returnedCallbackSubscriber, is(notNullValue()));
@@ -135,11 +137,11 @@ public class CallbackSubscriberShould {
     @Test
     public void use_emptyUseCaseCallback_when_removing_callback() {
         // given
-        final CallbackSubscriber<String, String> callbackSubscriber = givenCallbackSubscriberWithRealCallback();
+        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
 
         // when
-        callbackSubscriber.onCompleted();
-        callbackSubscriber.onCompleted();
+        subscriber.onCompleted();
+        subscriber.onCompleted();
 
         // then
         // Real use case used first time
@@ -152,10 +154,10 @@ public class CallbackSubscriberShould {
     @Test
     public void delegate_onCreate_to_useCaseCallback() {
         // given
-        final CallbackSubscriber<String, String> callbackSubscriber = givenCallbackSubscriberWithRealCallback();
+        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
 
         // when
-        callbackSubscriber.onCompleted();
+        subscriber.onCompleted();
 
         // then
         verify(realUseCaseCallback).onCompleted();
@@ -166,10 +168,10 @@ public class CallbackSubscriberShould {
     @Test
     public void delegate_onNext_to_useCaseCallback_when_model_is_present() {
         // given
-        final CallbackSubscriber<String, String> callbackSubscriber = givenCallbackSubscriberWithRealCallback();
+        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
 
         // when
-        callbackSubscriber.onNext(Optional.of(MODEL));
+        subscriber.onNext(Optional.of(MODEL));
 
         // then
         verify(realUseCaseCallback).onNext(same(MODEL));
@@ -180,10 +182,10 @@ public class CallbackSubscriberShould {
     @Test
     public void redirect_onNext_to_onError_when_model_is_not_present() {
         // given
-        final CallbackSubscriber<String, String> callbackSubscriber = givenCallbackSubscriberWithRealCallback();
+        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
 
         // when
-        callbackSubscriber.onNext(Optional.empty());
+        subscriber.onNext(Optional.empty());
 
         // then
         verify(realUseCaseCallback).onError(same(MODEL_IS_NULL_LOCALISED_ERROR_MESSAGE));
@@ -206,10 +208,10 @@ public class CallbackSubscriberShould {
     @Test
     public void delegate_onError_when_error_can_be_mapped() {
         // given
-        final CallbackSubscriber<String, String> callbackSubscriber = givenCallbackSubscriberWithRealCallback();
+        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
 
         // when
-        callbackSubscriber.onError(new IllegalArgumentException(ERROR_MESSAGE));
+        subscriber.onError(new IllegalArgumentException(ERROR_MESSAGE));
 
         // then
         verify(realUseCaseCallback).onError(same(ERROR_MESSAGE));
@@ -220,10 +222,10 @@ public class CallbackSubscriberShould {
     @Test
     public void do_nothing_on_onError_when_error_cannot_be_mapped() {
         // given
-        final CallbackSubscriber<String, String> callbackSubscriber = givenCallbackSubscriberWithRealCallback();
+        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
 
         // when
-        callbackSubscriber.onError(null);
+        subscriber.onError(null);
 
         // then
         verifyZeroInteractions(realUseCaseCallback);
