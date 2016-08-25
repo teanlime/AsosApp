@@ -9,6 +9,12 @@ import com.teanlime.domain.categories.model.response.Categories;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.teanlime.domain.api.util.Validate.nonNull;
+
+/**
+ * Mediates the data between local and remote storage. If requested data is already cached locally,
+ * it will be retried from that cache. Otherwise, remote repository is called and data is locally stored one retrieved
+ */
 public class CategoriesRepositoryMediator implements CategoriesRepository {
 
     private final CategoriesLocalRepository localCategoriesRepository;
@@ -16,8 +22,9 @@ public class CategoriesRepositoryMediator implements CategoriesRepository {
 
     public CategoriesRepositoryMediator(CategoriesLocalRepository localCategoriesRepository,
                                         CategoriesRepository remoteCategoriesRepository) {
-        this.remoteCategoriesRepository = remoteCategoriesRepository;
-        this.localCategoriesRepository = localCategoriesRepository;
+
+        this.remoteCategoriesRepository = nonNull(remoteCategoriesRepository);
+        this.localCategoriesRepository = nonNull(localCategoriesRepository);
 
     }
 
