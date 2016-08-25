@@ -36,53 +36,74 @@ public class CategoriesRepositoryMediatorShould {
 
     @Before
     public void setup() {
+        givenMediator();
+    }
+
+    private void givenMediator() {
         categoriesRepositoryMediator = new CategoriesRepositoryMediator(localCategoriesRepository,
                 remoteCategoriesRepository);
     }
 
     @Test(expected = NullPointerException.class)
     public void throw_NPE_when_created_without_localCategoriesRepository() {
+        // when
         new CategoriesRepositoryMediator(null, remoteCategoriesRepository);
     }
 
     @Test(expected = NullPointerException.class)
     public void throw_NPE_when_created_without_remoteCategoriesRepository() {
+        // when
         new CategoriesRepositoryMediator(localCategoriesRepository, null);
     }
 
     @Test
     public void return_categories_from_local_repository_if_has_locally_cached_categories() {
-        when(localCategoriesRepository.hasCategoriesForGroup(CategoriesGroup.WOMEN)).thenReturn(true);
+        // given
+        givenHasCachedWomenCategories();
 
+        // when
         categoriesRepositoryMediator.getCategoriesForGroup(CategoriesGroup.WOMEN);
 
+        // then
         verify(localCategoriesRepository).hasCategoriesForGroup(CategoriesGroup.WOMEN);
         verify(localCategoriesRepository).getCategoriesForGroup(CategoriesGroup.WOMEN);
         verifyNoMoreInteractions(localCategoriesRepository);
         verifyZeroInteractions(remoteCategoriesRepository);
     }
 
+    private void givenHasCachedWomenCategories() {
+        when(localCategoriesRepository.hasCategoriesForGroup(CategoriesGroup.WOMEN)).thenReturn(true);
+    }
+
     @Test
     public void return_categories_from_remote_repository_if_does_not_have_cached_categories() {
-        when(localCategoriesRepository.hasCategoriesForGroup(CategoriesGroup.WOMEN)).thenReturn(false);
-        when(remoteCategoriesRepository.getCategoriesForGroup(CategoriesGroup.WOMEN))
-                .thenReturn(Observable.just(Optional.of(categories)));
+        // given
+        givenSuccessfullDataIsRetrievedRemotely();
 
+        // when
         categoriesRepositoryMediator.getCategoriesForGroup(CategoriesGroup.WOMEN);
 
+        // then
         verify(localCategoriesRepository).hasCategoriesForGroup(CategoriesGroup.WOMEN);
         verify(localCategoriesRepository, times(0)).getCategoriesForGroup(any());
         verify(remoteCategoriesRepository).getCategoriesForGroup(CategoriesGroup.WOMEN);
     }
 
-    @Test
-    public void cache_remote_repository_response_if_successful() {
+    private void givenSuccessfullDataIsRetrievedRemotely() {
         when(localCategoriesRepository.hasCategoriesForGroup(CategoriesGroup.WOMEN)).thenReturn(false);
         when(remoteCategoriesRepository.getCategoriesForGroup(CategoriesGroup.WOMEN))
                 .thenReturn(Observable.just(Optional.of(categories)));
+    }
 
+    @Test
+    public void cache_remote_repository_response_if_successful() {
+        // given
+        givenSuccessfullDataIsRetrievedRemotely();
+
+        // when
         categoriesRepositoryMediator.getCategoriesForGroup(CategoriesGroup.WOMEN).subscribe(subscriber);
 
+        // then
         subscriber.assertReceivedOnNext(singletonList(Optional.of(categories)));
         subscriber.assertNoErrors();
         verify(localCategoriesRepository).putCategoriesForGroup(CategoriesGroup.WOMEN, categories);
@@ -90,14 +111,21 @@ public class CategoriesRepositoryMediatorShould {
 
     @Test
     public void not_cache_remote_repository_response_if_failed() {
-        when(localCategoriesRepository.hasCategoriesForGroup(CategoriesGroup.WOMEN)).thenReturn(false);
-        when(remoteCategoriesRepository.getCategoriesForGroup(CategoriesGroup.WOMEN))
-                .thenReturn(Observable.just(Optional.empty()));
+        // given
+        givenFailedDataIsRetrievedRemotely();
 
+        // when
         categoriesRepositoryMediator.getCategoriesForGroup(CategoriesGroup.WOMEN).subscribe(subscriber);
 
+        // then
         subscriber.assertNoErrors();
         subscriber.assertReceivedOnNext(singletonList(Optional.empty()));
         verify(localCategoriesRepository, times(0)).putCategoriesForGroup(any(), any());
+    }
+
+    private void givenFailedDataIsRetrievedRemotely() {
+        when(localCategoriesRepository.hasCategoriesForGroup(CategoriesGroup.WOMEN)).thenReturn(false);
+        when(remoteCategoriesRepository.getCategoriesForGroup(CategoriesGroup.WOMEN))
+                .thenReturn(Observable.just(Optional.empty()));
     }
 }
