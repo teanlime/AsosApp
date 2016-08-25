@@ -9,6 +9,9 @@ import java.util.Map;
 
 import rx.Observable;
 
+/**
+ * Caches categories in memory
+ */
 public class CategoriesInMemoryLocalRepository implements CategoriesLocalRepository {
 
     private final Map<CategoriesGroup, Categories> categoriesMap = new HashMap<>();
