@@ -10,6 +10,11 @@ import com.teanlime.domain.categories.model.response.Categories;
 
 import rx.Observable;
 
+import static com.teanlime.domain.api.util.Validate.nonNull;
+
+/**
+ * Retrieves categories data from a remote source
+ */
 public class CategoriesRemoteRepository implements CategoriesRepository {
 
     private final Mapper<CategoriesGroup, String> categoriesGroupQueryMapper;
@@ -22,10 +27,10 @@ public class CategoriesRemoteRepository implements CategoriesRepository {
                                       String fallbackCategoryGroup,
                                       RemoteService service) {
 
-        this.categoriesGroupQueryMapper = categoriesGroupQueryMapper;
-        this.fallbackCategoryGroup = fallbackCategoryGroup;
-        this.responseMapper = responseMapper;
-        this.service = service;
+        this.categoriesGroupQueryMapper = nonNull(categoriesGroupQueryMapper);
+        this.fallbackCategoryGroup = nonNull(fallbackCategoryGroup);
+        this.responseMapper = nonNull(responseMapper);
+        this.service = nonNull(service);
     }
 
     @Override
