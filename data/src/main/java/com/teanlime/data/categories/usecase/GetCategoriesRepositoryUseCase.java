@@ -7,6 +7,11 @@ import com.teanlime.domain.categories.model.request.CategoriesGroup;
 import com.teanlime.domain.categories.model.response.Categories;
 import com.teanlime.domain.categories.usecase.GetCategoriesUseCase;
 
+import static com.teanlime.domain.api.util.Validate.nonNull;
+
+/**
+ * Returns Categories from a repository
+ */
 public class GetCategoriesRepositoryUseCase implements GetCategoriesUseCase {
 
     private final RxUseCaseSubscription<Categories, String> rxUseCaseSubscription;
@@ -17,8 +22,8 @@ public class GetCategoriesRepositoryUseCase implements GetCategoriesUseCase {
     public GetCategoriesRepositoryUseCase(RxUseCaseSubscription<Categories, String> rxUseCaseSubscription,
                                           CategoriesRepository categoriesRepository) {
 
-        this.rxUseCaseSubscription = rxUseCaseSubscription;
-        this.categoriesRepository = categoriesRepository;
+        this.rxUseCaseSubscription = nonNull(rxUseCaseSubscription);
+        this.categoriesRepository = nonNull(categoriesRepository);
     }
 
     @Override
