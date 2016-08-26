@@ -10,6 +10,11 @@ import com.teanlime.domain.categories.model.response.Category;
 
 import java.util.List;
 
+import static com.teanlime.domain.api.util.Validate.nonNull;
+
+/**
+ * Maps CategoryModel object into Category object
+ */
 public class CategoriesMapper implements Mapper<CategoriesModel, Categories> {
 
     private final ListMapper<CategoryModel, Category> categoryListMapper;
@@ -18,8 +23,8 @@ public class CategoriesMapper implements Mapper<CategoriesModel, Categories> {
     public CategoriesMapper(ListMapper<CategoryModel, Category> categoryListMapper,
                             List<Category> fallbackCategoryList) {
 
-        this.fallbackCategoryList = fallbackCategoryList;
-        this.categoryListMapper = categoryListMapper;
+        this.fallbackCategoryList = nonNull(fallbackCategoryList);
+        this.categoryListMapper = nonNull(categoryListMapper);
     }
 
     @Override
