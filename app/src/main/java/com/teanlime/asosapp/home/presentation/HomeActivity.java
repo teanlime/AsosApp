@@ -38,11 +38,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-//import butterknife.BindView;
+import butterknife.BindView;
 
 public class HomeActivity extends AsosActivity implements CategoriesView {
 
-    //@BindView(R.id.splash_logo)
+    @BindView(R.id.splash_logo)
     ImageView asosLogo;
 
     @NonNull
@@ -54,8 +54,6 @@ public class HomeActivity extends AsosActivity implements CategoriesView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO Use via Butterknife
-        asosLogo = (ImageView) findViewById(R.id.splash_logo);
         Glide.with(this).load(Uri.parse("file:///android_asset/logo-splash.gif"))
                 .asBitmap()
                 .sizeMultiplier(0.37f)

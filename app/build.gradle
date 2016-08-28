@@ -46,7 +46,7 @@ dependencies {
     compile rootProject.libraries.glide
     compile rootProject.libraries.rxjava
     compile rootProject.libraries.rxandroid
-    //compile rootProject.libraries.butterknife
+    compile rootProject.libraries.butterknife
     compile rootProject.libraries.java_stream_support
-    //annotationProcessor rootProject.libraries.butterknife_apt
+    annotationProcessor rootProject.libraries.butterknife_apt
 }
