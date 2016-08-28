@@ -26,15 +26,15 @@ task clean(type: Delete) {
 ext.libraries = [
 
         //Retrofit
-        gson               : 'com.google.code.gson:gson:2.6.1',
+        gson               : 'com.google.code.gson:gson:2.7',
 
-        retrofit           : 'com.squareup.retrofit2:retrofit:2.0.0',
-        retrofit_adapter   : 'com.squareup.retrofit2:adapter-rxjava:2.0.0',
-        retrofit_gson      : 'com.squareup.retrofit2:converter-gson:2.0.0',
+        retrofit           : 'com.squareup.retrofit2:retrofit:2.1.0',
+        retrofit_adapter   : 'com.squareup.retrofit2:adapter-rxjava:2.1.0',
+        retrofit_gson      : 'com.squareup.retrofit2:converter-gson:2.1.0',
 
         //ReactiveX
-        rxandroid          : 'io.reactivex:rxandroid:1.1.0',
-        rxjava             : 'io.reactivex:rxjava:1.1.1',
+        rxandroid          : 'io.reactivex:rxandroid:1.2.1',
+        rxjava             : 'io.reactivex:rxjava:1.1.6',
 
         //Testing
         junit              : 'junit:junit:4.12',
@@ -54,5 +54,5 @@ ext.libraries = [
 
         //Java 8 Support
         java_lambda_support: 'me.tatarka:gradle-retrolambda:3.3.0-beta4',
-        java_stream_support: 'com.annimon:stream:1.1.0',
+        java_stream_support: 'com.annimon:stream:1.1.2',
 ]
