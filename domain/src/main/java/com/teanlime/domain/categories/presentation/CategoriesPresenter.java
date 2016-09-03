@@ -13,7 +13,9 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
     private final GetCategoriesUseCase getCategoriesUseCase;
 
     @Inject
-    public CategoriesPresenter(GetCategoriesUseCase getCategoriesUseCase) {
+    public CategoriesPresenter(GetCategoriesUseCase getCategoriesUseCase,
+                               EmptyCategoriesView emptyCategoriesView) {
+        super(emptyCategoriesView);
         this.getCategoriesUseCase = getCategoriesUseCase;
     }
 
@@ -37,10 +39,5 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
                 view.displayCategories(model);
             }
         });
-    }
-
-    @Override
-    protected CategoriesView getEmptyView() {
-        return new EmptyCategoriesView();
     }
 }

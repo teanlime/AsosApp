@@ -2,16 +2,17 @@ package com.teanlime.domain.api.presentation;
 
 public abstract class Presenter<V> {
 
+    private V emptyView;
     private V view;
 
-    public Presenter() {
-        this.view = getEmptyView();
+    public Presenter(V emptyView) {
+        this.emptyView = emptyView;
+
+        detachView();
     }
 
-    protected abstract V getEmptyView();
-
     public void detachView() {
-        this.view = getEmptyView();
+        this.view = this.emptyView;
     }
 
     public void attachView(V view) {
