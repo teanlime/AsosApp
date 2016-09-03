@@ -6,10 +6,13 @@ import com.teanlime.domain.categories.model.request.CategoriesGroup;
 import com.teanlime.domain.categories.model.response.Categories;
 import com.teanlime.domain.categories.usecase.GetCategoriesUseCase;
 
+import javax.inject.Inject;
+
 public class CategoriesPresenter extends Presenter<CategoriesView> {
 
     private final GetCategoriesUseCase getCategoriesUseCase;
 
+    @Inject
     public CategoriesPresenter(GetCategoriesUseCase getCategoriesUseCase) {
         this.getCategoriesUseCase = getCategoriesUseCase;
     }

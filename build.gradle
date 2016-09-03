@@ -55,4 +55,9 @@ ext.libraries = [
         //Java 8 Support
         java_lambda_support: 'me.tatarka:gradle-retrolambda:3.3.0-beta4',
         java_stream_support: 'com.annimon:stream:1.1.2',
+
+        //Dependency Injection
+        dagger2_apt        : 'com.google.dagger:dagger-compiler:2.5',
+        dagger2            : 'com.google.dagger:dagger:2.5',
+        java_x_annotations : 'javax.inject:javax.inject:1'
 ]

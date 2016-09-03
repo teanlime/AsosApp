@@ -5,6 +5,8 @@ import com.teanlime.data.api.mapper.Mapper;
 import com.teanlime.domain.api.usecase.EmptyUseCaseCallback;
 import com.teanlime.domain.api.usecase.UseCaseCallback;
 
+import javax.inject.Inject;
+
 import rx.Subscriber;
 
 import static com.teanlime.domain.api.util.Validate.nonNull;
@@ -26,6 +28,7 @@ public class CallbackSubscriber<M, E> extends Subscriber<Optional<M>> {
 
     private UseCaseCallback<M, E> useCaseCallback;
 
+    @Inject
     public CallbackSubscriber(EmptyUseCaseCallback<M, E> emptyUseCaseCallback,
                               Mapper<Throwable, E> useCaseExceptionMapper) {
 

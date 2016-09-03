@@ -3,6 +3,8 @@ package com.teanlime.data.api.usecase;
 import com.annimon.stream.Optional;
 import com.teanlime.domain.api.usecase.UseCaseCallback;
 
+import javax.inject.Inject;
+
 import rx.Observable;
 import rx.Subscription;
 
@@ -21,6 +23,7 @@ public class RxUseCaseSubscription<M, E> {
 
     private Subscription subscription;
 
+    @Inject
     public RxUseCaseSubscription(CallbackSubscriber<M, E> callbackSubscriber,
                                  RxSchedulerFactory schedulerFactory) {
 

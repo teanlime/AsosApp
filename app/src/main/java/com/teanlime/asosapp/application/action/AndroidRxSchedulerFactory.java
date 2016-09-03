@@ -1,4 +1,4 @@
-package com.teanlime.asosapp.base.action;
+package com.teanlime.asosapp.application.action;
 
 import com.teanlime.data.api.usecase.RxSchedulerFactory;
 

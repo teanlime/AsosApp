@@ -3,6 +3,7 @@ package com.teanlime.asosapp.base.presentation;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -21,10 +22,20 @@ public abstract class AsosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
+
+        getActivityComponent();
     }
 
     @LayoutRes
     protected int getLayoutResource() {
         return R.layout.activity_content;
+    }
+
+    @NonNull
+    public abstract Object getActivityComponent();
+
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return getActivityComponent();
     }
 }

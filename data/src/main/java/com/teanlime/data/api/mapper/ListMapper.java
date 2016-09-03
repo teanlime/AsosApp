@@ -6,6 +6,8 @@ import com.teanlime.domain.api.util.streams.ImmutableCollectors;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import static com.teanlime.domain.api.util.Validate.nonNull;
 
 /**
@@ -19,6 +21,7 @@ public class ListMapper<SOURCE_MODEL, TARGET_MODEL> implements Mapper<List<SOURC
 
     private final Mapper<SOURCE_MODEL, TARGET_MODEL> listItemMapper;
 
+    @Inject
     public ListMapper(Mapper<SOURCE_MODEL, TARGET_MODEL> listItemMapper) {
         this.listItemMapper = nonNull(listItemMapper);
     }

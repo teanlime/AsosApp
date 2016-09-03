@@ -14,6 +14,7 @@ apply plugin: 'me.tatarka.retrolambda'
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile rootProject.libraries.java_stream_support
+    compile rootProject.libraries.java_x_annotations
 }
 
 //noinspection GroovyUnusedAssignment
