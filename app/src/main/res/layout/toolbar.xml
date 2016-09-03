@@ -10,6 +10,6 @@
     android:fitsSystemWindows="true"
     android:minHeight="?attr/actionBarSize"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    tools:showIn="@layout/activity_home">
+    tools:showIn="@layout/navigation_drawer">
 
 </android.support.v7.widget.Toolbar>

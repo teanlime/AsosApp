@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -35,6 +38,15 @@ public class HomeActivity extends AsosActivity implements CategoriesView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.content)
+    ViewGroup content;
+
+    @BindView(R.id.screen_home)
+    View homeScreen;
+
+    @BindView(R.id.drawer)
+    DrawerLayout drawerLayout;
 
     @Inject
     CategoriesPresenter presenter;
@@ -75,6 +87,7 @@ public class HomeActivity extends AsosActivity implements CategoriesView {
                 .into(asosLogo);
 
         toolbar.setTitle(R.string.asos);
+        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -85,10 +98,24 @@ public class HomeActivity extends AsosActivity implements CategoriesView {
     @Override
     public void displayCategories(Categories model) {
         Log.d("ANNALOG", "HomeActivity displayCategories: " + model.toString());
+
+        loadingScreen.setVisibility(View.GONE);
+        homeScreen.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void displayCategoriesError(String exception) {
         Log.e("ANNALOG", "HomeActivity displayCategoriesError: " + exception);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // The action bar home/up action should open or close the drawer.
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
