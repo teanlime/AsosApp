@@ -22,6 +22,7 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
     @Override
     public void attachView(CategoriesView view) {
         super.attachView(view);
+        view.initViews();
         view.displayLoading();
         requestCategories(view);
     }

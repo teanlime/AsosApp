@@ -21,6 +21,7 @@ public abstract class AsosActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
+
         ButterKnife.bind(this);
 
         getActivityComponent();

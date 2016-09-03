@@ -9,6 +9,8 @@
     android:orientation="vertical"
     tools:context=".home.presentation.HomeActivity">
 
+    <include layout="@layout/toolbar"/>
+
     <include layout="@layout/screen_loading"/>
 
 </LinearLayout>

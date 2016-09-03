@@ -9,4 +9,6 @@ public interface CategoriesView {
     void displayCategoriesError(String exception);
 
     void displayLoading();
+
+    void initViews();
 }
