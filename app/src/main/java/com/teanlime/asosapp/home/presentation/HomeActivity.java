@@ -140,6 +140,8 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
 
         loadingScreen.setVisibility(View.GONE);
         homeScreen.setVisibility(View.VISIBLE);
+
+        drawerLayout.openDrawer(GravityCompat.START, true);
     }
 
     @Override
@@ -152,7 +154,7 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
         // The action bar home/up action should open or close the drawer.
         switch (item.getItemId()) {
             case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
+                drawerLayout.openDrawer(GravityCompat.START, true);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -161,7 +163,7 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+            drawerLayout.closeDrawer(GravityCompat.START, true);
         } else {
             super.onBackPressed();
         }
@@ -193,7 +195,7 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
 //
 //        }
 
-        drawerLayout.closeDrawer(GravityCompat.START);
+        drawerLayout.closeDrawer(GravityCompat.START, true);
         return true;
     }
 }
