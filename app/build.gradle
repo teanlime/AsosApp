@@ -1,4 +1,15 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath rootProject.libraries.java_lambda_support
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion(rootProject.compileSdkVersion as int)
@@ -10,9 +21,6 @@ android {
         targetSdkVersion(rootProject.targetSdkVersion as int)
         versionCode(rootProject.versionCode as int)
         versionName rootProject.versionName
-        jackOptions {
-            enabled true
-        }
     }
     buildTypes {
         debug {
