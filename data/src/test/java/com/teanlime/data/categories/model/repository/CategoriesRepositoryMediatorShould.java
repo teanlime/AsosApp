@@ -25,8 +25,8 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class CategoriesRepositoryMediatorShould {
 
+    private final TestSubscriber<Optional<Categories>> subscriber = new TestSubscriber<>();
     private CategoriesRepositoryMediator categoriesRepositoryMediator;
-    private TestSubscriber<Optional<Categories>> subscriber = new TestSubscriber<>();
     @Mock
     private CategoriesLocalRepository localCategoriesRepository;
     @Mock
@@ -78,7 +78,7 @@ public class CategoriesRepositoryMediatorShould {
     @Test
     public void return_categories_from_remote_repository_if_does_not_have_cached_categories() {
         // given
-        givenSuccessfullDataIsRetrievedRemotely();
+        givenSuccessfulDataIsRetrievedRemotely();
 
         // when
         categoriesRepositoryMediator.getCategoriesForGroup(CategoriesGroup.WOMEN);
@@ -89,7 +89,7 @@ public class CategoriesRepositoryMediatorShould {
         verify(remoteCategoriesRepository).getCategoriesForGroup(CategoriesGroup.WOMEN);
     }
 
-    private void givenSuccessfullDataIsRetrievedRemotely() {
+    private void givenSuccessfulDataIsRetrievedRemotely() {
         when(localCategoriesRepository.hasCategoriesForGroup(CategoriesGroup.WOMEN)).thenReturn(false);
         when(remoteCategoriesRepository.getCategoriesForGroup(CategoriesGroup.WOMEN))
                 .thenReturn(Observable.just(Optional.of(categories)));
@@ -98,7 +98,7 @@ public class CategoriesRepositoryMediatorShould {
     @Test
     public void cache_remote_repository_response_if_successful() {
         // given
-        givenSuccessfullDataIsRetrievedRemotely();
+        givenSuccessfulDataIsRetrievedRemotely();
 
         // when
         categoriesRepositoryMediator.getCategoriesForGroup(CategoriesGroup.WOMEN).subscribe(subscriber);

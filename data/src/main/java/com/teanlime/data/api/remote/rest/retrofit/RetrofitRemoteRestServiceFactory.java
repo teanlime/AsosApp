@@ -16,11 +16,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitRemoteRestServiceFactory {
 
+    private static final String DATE_AND_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
     private static final String BASE_URL = "http://teanlime.com/";
 
     public RetrofitRemoteRestService create() {
         final Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .setDateFormat(DATE_AND_TIME_FORMAT)
                 .create();
 
         final Retrofit retrofit = new Retrofit.Builder()

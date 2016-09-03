@@ -13,7 +13,7 @@ public interface GetCategoriesUseCase extends UseCase<Categories, String> {
     /**
      * Sets the CategoriesGroup on the request
      *
-     * @param categoriesGroup categories group for retrieveal of Categories
+     * @param categoriesGroup categories group for retrieval of Categories
      * @return this
      */
     GetCategoriesUseCase categoriesGroup(CategoriesGroup categoriesGroup);

@@ -28,10 +28,8 @@ import static org.mockito.Mockito.when;
 public class CategoriesRemoteRepositoryShould {
 
     private static final String FALLBACK = "test_fallback";
-
+    private final TestSubscriber<Optional<Categories>> subscriber = new TestSubscriber<>();
     private CategoriesRemoteRepository repository;
-    private TestSubscriber<Optional<Categories>> subscriber = new TestSubscriber<>();
-
     @Mock
     private Mapper<CategoriesGroup, String> categoriesGroupQueryMapper;
     @Mock

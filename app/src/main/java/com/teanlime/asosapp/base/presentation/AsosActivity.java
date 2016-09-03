@@ -32,7 +32,7 @@ public abstract class AsosActivity extends AppCompatActivity {
     }
 
     @NonNull
-    public abstract Object getActivityComponent();
+    protected abstract Object getActivityComponent();
 
     @Override
     public Object onRetainCustomNonConfigurationInstance() {
