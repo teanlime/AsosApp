@@ -4,10 +4,10 @@ import com.teanlime.domain.categories.model.response.Categories;
 
 import javax.inject.Inject;
 
-public class EmptyCategoriesView implements CategoriesView {
+class EmptyCategoriesView implements CategoriesView {
 
     @Inject
-    public EmptyCategoriesView() {
+    EmptyCategoriesView() {
 
     }
 
@@ -18,6 +18,11 @@ public class EmptyCategoriesView implements CategoriesView {
 
     @Override
     public void displayCategoriesError(String exception) {
+
+    }
+
+    @Override
+    public void displayLoading() {
 
     }
 }

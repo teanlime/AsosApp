@@ -7,4 +7,6 @@ public interface CategoriesView {
     void displayCategories(Categories model);
 
     void displayCategoriesError(String exception);
+
+    void displayLoading();
 }

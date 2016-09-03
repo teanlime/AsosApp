@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -26,6 +28,9 @@ public class HomeActivity extends AsosActivity implements CategoriesView {
 
     @BindView(R.id.splash_logo)
     ImageView asosLogo;
+
+    @BindView(R.id.screen_loading)
+    ViewGroup loadingScreen;
 
     @Inject
     CategoriesPresenter presenter;
@@ -61,7 +66,12 @@ public class HomeActivity extends AsosActivity implements CategoriesView {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.activity_main;
+        return R.layout.activity_home;
+    }
+
+    @Override
+    public void displayLoading() {
+        loadingScreen.setVisibility(View.VISIBLE);
     }
 
     @Override

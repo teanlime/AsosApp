@@ -13,8 +13,8 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
     private final GetCategoriesUseCase getCategoriesUseCase;
 
     @Inject
-    public CategoriesPresenter(GetCategoriesUseCase getCategoriesUseCase,
-                               EmptyCategoriesView emptyCategoriesView) {
+    CategoriesPresenter(GetCategoriesUseCase getCategoriesUseCase,
+                        EmptyCategoriesView emptyCategoriesView) {
         super(emptyCategoriesView);
         this.getCategoriesUseCase = getCategoriesUseCase;
     }
@@ -22,8 +22,11 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
     @Override
     public void attachView(CategoriesView view) {
         super.attachView(view);
+        view.displayLoading();
+        requestCategories(view);
+    }
 
-        //TODO Change!
+    private void requestCategories(final CategoriesView view) {
         getCategoriesUseCase.categoriesGroup(CategoriesGroup.WOMEN).execute(new UseCaseCallback<Categories, String>() {
             @Override
             public void onCompleted() {
