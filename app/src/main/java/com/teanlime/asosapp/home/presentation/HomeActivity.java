@@ -115,7 +115,7 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
     private void setupNavigationDrawer() {
         final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.setDrawerListener(toggle);
+        drawerLayout.addDrawerListener(toggle);
 
         final View headerView = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
         final ImageView navigationDrawerImage = (ImageView) headerView.findViewById(R.id.navigation_drawer_header_image);
