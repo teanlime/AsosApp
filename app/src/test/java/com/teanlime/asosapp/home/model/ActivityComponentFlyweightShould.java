@@ -1,8 +1,7 @@
 package com.teanlime.asosapp.home.model;
 
-import android.support.v4.app.FragmentActivity;
-
 import com.teanlime.asosapp.base.model.ActivityComponentFactory;
+import com.teanlime.asosapp.base.presentation.AsosActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +22,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ActivityComponentFlyweightShould {
 
+    private static final BigDecimal CURRENT_COMPONENT = BigDecimal.ZERO;
     private static final BigDecimal SAVED_COMPONENT = BigDecimal.TEN;
     private static final BigDecimal NEW_COMPONENT = BigDecimal.ONE;
     private static final BigDecimal NO_SAVED_COMPONENT = null;
@@ -33,7 +33,7 @@ public class ActivityComponentFlyweightShould {
     private ActivityComponentFactory<BigDecimal> activityComponentFactory;
 
     @Mock
-    private FragmentActivity activity;
+    private AsosActivity<BigDecimal> activity;
 
     @Before
     public void setup() {
@@ -89,5 +89,22 @@ public class ActivityComponentFlyweightShould {
 
     private void givenValidComponentIsSaved() {
         when(activity.getLastCustomNonConfigurationInstance()).thenReturn(SAVED_COMPONENT);
+    }
+
+    @Test
+    public void return_current_component_when_valid_component_exists() {
+        // given
+        givenValidCurrentComponent();
+
+        // when
+        final BigDecimal component = activityComponentFlyweight.create(activity);
+
+        // then
+        verifyZeroInteractions(activityComponentFactory);
+        assertThat(component, is(equalTo(CURRENT_COMPONENT)));
+    }
+
+    private void givenValidCurrentComponent() {
+        when(activity.getActivityComponent()).thenReturn(CURRENT_COMPONENT);
     }
 }

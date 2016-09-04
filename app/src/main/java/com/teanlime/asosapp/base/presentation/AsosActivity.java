@@ -42,7 +42,6 @@ public abstract class AsosActivity<T> extends AppCompatActivity {
         return getActivityComponent();
     }
 
-    @NonNull
     public T getActivityComponent() {
         return activityComponent;
     }

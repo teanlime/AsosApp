@@ -1,9 +1,9 @@
 package com.teanlime.asosapp.home.model;
 
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 
 import com.teanlime.asosapp.base.model.ActivityComponentFactory;
+import com.teanlime.asosapp.base.presentation.AsosActivity;
 
 import static com.teanlime.domain.api.util.Validate.nonNull;
 
@@ -16,7 +16,12 @@ public class ActivityComponentFlyweight<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public T create(@NonNull FragmentActivity activity) {
+    public T create(@NonNull AsosActivity<T> activity) {
+        final T currentActivityComponent = activity.getActivityComponent();
+        if (currentActivityComponent != null) {
+            return currentActivityComponent;
+        }
+
         final T savedHomeComponent = (T) activity.getLastCustomNonConfigurationInstance();
 
         if (savedHomeComponent == null) {
