@@ -23,7 +23,7 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
     public void attachView(CategoriesView view) {
         super.attachView(view);
 
-        this.view.initViews();
+        this.view.setupViews();
         this.view.displayLoading();
 
         requestCategories();

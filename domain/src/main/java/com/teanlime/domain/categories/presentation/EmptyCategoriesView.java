@@ -44,7 +44,7 @@ class EmptyCategoriesView implements CategoriesView {
     }
 
     @Override
-    public void initViews() {
+    public void setupViews() {
 
     }
 

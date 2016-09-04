@@ -101,14 +101,17 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
     }
 
     @Override
-    public void initViews() {
+    public void setupViews() {
+        setupErrorScreen();
+        setupToolbar();
+        setupNavigationDrawer();
+    }
+
+    private void setupErrorScreen() {
         Glide.with(this).load(Uri.parse("file:///android_asset/logo-splash.gif"))
                 .asBitmap()
                 .sizeMultiplier(0.37f)
                 .into(asosLogo);
-
-        setupToolbar();
-        setupNavigationDrawer();
     }
 
     private void setupToolbar() {
@@ -117,20 +120,23 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
     }
 
     private void setupNavigationDrawer() {
-        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
 
+        setupNavigationDrawerHeader();
+
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setupNavigationDrawerHeader() {
         final View headerView = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
         final ImageView navigationDrawerImage = (ImageView) headerView.findViewById(R.id.navigation_drawer_header_image);
 
         Glide.with(this).load(Uri.parse("file:///android_asset/logo-splash.gif"))
                 .asBitmap()
                 .into(navigationDrawerImage);
-
-        toggle.syncState();
-
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -164,7 +170,6 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // The action bar home/up action should open or close the drawer.
         switch (item.getItemId()) {
             case android.R.id.home:
                 openNavigationDrawer();
@@ -195,7 +200,6 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home_settings, menu);
         return true;
     }

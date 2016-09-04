@@ -18,7 +18,7 @@ public interface CategoriesView {
 
     void displayContent();
 
-    void initViews();
+    void setupViews();
 
     void closeNavigationDrawer();
 
