@@ -45,15 +45,29 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
         }
     }
 
+    @Override
+    public void detachView() {
+        super.detachView();
+
+        getCategoriesUseCase.cancel();
+    }
+
+    public void onBackPressed() {
+        if (view.isNavigationDrawerOpen()) {
+            view.closeNavigationDrawer();
+        } else {
+            view.processOnBackPressed();
+        }
+    }
+
+    public void onWomenMenuButtonClicked() {
+        selectWomenCategory();
+    }
+
     private void selectWomenCategory() {
         view.selectWomenCategoryGroup();
         view.deselectMenCategoryGroup();
-    }
-
-    private void selectMenCategory() {
-        view.selectMenCategoryGroup();
-        view.deselectWomenCategoryGroup();
-        requestCategories(CategoriesGroup.MEN);
+        requestCategories(CategoriesGroup.WOMEN);
     }
 
     private void requestCategories(CategoriesGroup categoriesGroup) {
@@ -84,26 +98,13 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
         }
     }
 
-    @Override
-    public void detachView() {
-        super.detachView();
-
-        getCategoriesUseCase.cancel();
-    }
-
-    public void onBackPressed() {
-        if (view.isNavigationDrawerOpen()) {
-            view.closeNavigationDrawer();
-        } else {
-            view.processOnBackPressed();
-        }
-    }
-
-    public void onWomenMenuButtonClicked() {
-        selectWomenCategory();
-    }
-
     public void onMenMenuButtonClicked() {
         selectMenCategory();
+    }
+
+    private void selectMenCategory() {
+        view.selectMenCategoryGroup();
+        view.deselectWomenCategoryGroup();
+        requestCategories(CategoriesGroup.MEN);
     }
 }
