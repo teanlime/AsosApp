@@ -1,6 +1,8 @@
 package com.teanlime.domain.categories.presentation;
 
-import com.teanlime.domain.categories.model.response.Categories;
+import com.teanlime.domain.categories.model.response.Category;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -12,7 +14,17 @@ class EmptyCategoriesView implements CategoriesView {
     }
 
     @Override
-    public void displayCategories(Categories model) {
+    public void addNavigationDrawerSubmenuCategories(String categoriesGroup, List<Category> categoryList) {
+
+    }
+
+    @Override
+    public boolean isNavigationDrawerOpen() {
+        return false;
+    }
+
+    @Override
+    public void openNavigationDrawer() {
 
     }
 
@@ -27,7 +39,22 @@ class EmptyCategoriesView implements CategoriesView {
     }
 
     @Override
+    public void displayContent() {
+
+    }
+
+    @Override
     public void initViews() {
+
+    }
+
+    @Override
+    public void closeNavigationDrawer() {
+
+    }
+
+    @Override
+    public void processOnBackPressed() {
 
     }
 }

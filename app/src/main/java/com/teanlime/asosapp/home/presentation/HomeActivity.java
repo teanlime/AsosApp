@@ -24,10 +24,11 @@ import com.teanlime.asosapp.base.presentation.AsosActivity;
 import com.teanlime.asosapp.home.di.HomeActivityComponent;
 import com.teanlime.asosapp.home.model.ActivityComponentFlyweight;
 import com.teanlime.asosapp.home.model.HomeActivityComponentFactory;
-import com.teanlime.domain.categories.model.response.Categories;
 import com.teanlime.domain.categories.model.response.Category;
 import com.teanlime.domain.categories.presentation.CategoriesPresenter;
 import com.teanlime.domain.categories.presentation.CategoriesView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -37,6 +38,9 @@ import static com.teanlime.asosapp.R.id.drawer;
 
 public class HomeActivity extends AsosActivity implements CategoriesView,
         NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int DRAWER_GRAVITY = GravityCompat.START;
+    private static final String TAG = "HomeActivity";
 
     @BindView(R.id.splash_logo)
     ImageView asosLogo;
@@ -132,27 +136,30 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
     @Override
     public void displayLoading() {
         loadingScreen.setVisibility(View.VISIBLE);
+        homeScreen.setVisibility(View.GONE);
     }
 
     @Override
-    public void displayCategories(Categories model) {
-        Log.d("ANNALOG", "HomeActivity displayCategories: " + model.toString());
-
-        final Menu menu = navigationView.getMenu();
-        final SubMenu subMenu = menu.addSubMenu(model.getDescription());
-        for (Category category : model.getListing()) {
-            subMenu.add(category.getName());
-        }
-
+    public void displayContent() {
         loadingScreen.setVisibility(View.GONE);
         homeScreen.setVisibility(View.VISIBLE);
+    }
 
-        drawerLayout.openDrawer(GravityCompat.START, true);
+    @Override
+    public void addNavigationDrawerSubmenuCategories(String categoriesGroup, List<Category> categoryList) {
+        Log.d(TAG, "addNavigationDrawerSubmenuCategories: " + categoriesGroup + " " + categoryList.toString());
+
+        final SubMenu subMenu = navigationView.getMenu().addSubMenu(categoriesGroup);
+        for (int i = 0; i < categoryList.size(); i++) {
+            subMenu.add(Menu.NONE, i, Menu.NONE, categoryList.get(i).getName());
+        }
     }
 
     @Override
     public void displayCategoriesError(String exception) {
-        Log.e("ANNALOG", "HomeActivity displayCategoriesError: " + exception);
+        Log.e(TAG, "displayCategoriesError: " + exception);
+
+        // TODO create error screen
     }
 
     @Override
@@ -160,19 +167,30 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
         // The action bar home/up action should open or close the drawer.
         switch (item.getItemId()) {
             case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START, true);
+                openNavigationDrawer();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
+    public void openNavigationDrawer() {
+        drawerLayout.openDrawer(DRAWER_GRAVITY, true);
+    }
+
+    @Override
+    public boolean isNavigationDrawerOpen() {
+        return drawerLayout.isDrawerOpen(DRAWER_GRAVITY);
+    }
+
+    @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START, true);
-        } else {
-            super.onBackPressed();
-        }
+        presenter.onBackPressed();
+    }
+
+    @Override
+    public void processOnBackPressed() {
+        super.onBackPressed();
     }
 
     @Override
@@ -201,7 +219,12 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
 //
 //        }
 
-        drawerLayout.closeDrawer(GravityCompat.START, true);
+        closeNavigationDrawer();
         return true;
+    }
+
+    @Override
+    public void closeNavigationDrawer() {
+        drawerLayout.closeDrawer(DRAWER_GRAVITY, true);
     }
 }

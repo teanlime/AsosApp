@@ -42,9 +42,17 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
 
             @Override
             public void onNext(Categories model) {
-                view.displayCategories(model);
+                view.addNavigationDrawerSubmenuCategories(model.getDescription(), model.getListing());
+                view.displayContent();
+                openNavigationDrawer();
             }
         });
+    }
+
+    private void openNavigationDrawer() {
+        if (!view.isNavigationDrawerOpen()) {
+            view.openNavigationDrawer();
+        }
     }
 
     @Override
@@ -52,5 +60,13 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
         super.detachView();
 
         getCategoriesUseCase.cancel();
+    }
+
+    public void onBackPressed() {
+        if (view.isNavigationDrawerOpen()) {
+            view.closeNavigationDrawer();
+        } else {
+            view.processOnBackPressed();
+        }
     }
 }
