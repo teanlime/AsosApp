@@ -23,11 +23,10 @@ public class ActivityComponentFlyweight<T> {
         }
 
         final T savedHomeComponent = (T) activity.getLastCustomNonConfigurationInstance();
-
-        if (savedHomeComponent == null) {
-            return activityComponentFactory.create(activity);
+        if (savedHomeComponent != null) {
+            return savedHomeComponent;
         }
 
-        return savedHomeComponent;
+        return activityComponentFactory.create(activity);
     }
 }
