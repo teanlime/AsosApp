@@ -1,5 +1,6 @@
 package com.teanlime.asosapp.home.presentation;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -175,6 +176,7 @@ public class HomeActivity extends AsosActivity<HomeActivityComponent> implements
         });
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void selectWomenCategoryGroup() {
         new Handler().post(() -> {
