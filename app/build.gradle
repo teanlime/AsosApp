@@ -21,6 +21,10 @@ android {
         targetSdkVersion(rootProject.targetSdkVersion as int)
         versionCode(rootProject.versionCode as int)
         versionName rootProject.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    packagingOptions {
+        exclude 'LICENSE.txt'
     }
     buildTypes {
         debug {
@@ -61,9 +65,20 @@ dependencies {
     compile rootProject.libraries.java_stream_support
     compile rootProject.libraries.android_support_design
     compile rootProject.libraries.android_percentage_layout
-    
+
     annotationProcessor rootProject.libraries.butterknife_apt
     annotationProcessor rootProject.libraries.dagger2_apt
+
     compile rootProject.libraries.dagger2
     provided rootProject.libraries.java_x_annotations
+
+    androidTestCompile rootProject.libraries.android_annotations
+    androidTestCompile(rootProject.libraries.android_test_espresso_intent) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile(rootProject.libraries.android_test_espresso) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile rootProject.libraries.android_test_rules
+    androidTestCompile rootProject.libraries.android_test_runner
 }
