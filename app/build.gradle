@@ -41,6 +41,10 @@ android {
         }
     }
 
+    sourceSets {
+        androidTest.setRoot('src/androidTest')
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -73,9 +77,7 @@ dependencies {
     provided rootProject.libraries.java_x_annotations
 
     androidTestCompile rootProject.libraries.android_annotations
-    androidTestCompile(rootProject.libraries.android_test_espresso_intent) {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
+    androidTestCompile rootProject.libraries.android_test_espresso_intent
     androidTestCompile(rootProject.libraries.android_test_espresso) {
         exclude group: 'com.android.support', module: 'support-annotations'
     }

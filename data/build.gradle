@@ -34,6 +34,7 @@ dependencies {
     compile project(':domain')
     compile rootProject.libraries.java_stream_support
     compile rootProject.libraries.retrofit_adapter
+    compile rootProject.libraries.retrofit_logging
     compile rootProject.libraries.retrofit_gson
     compile rootProject.libraries.rxandroid
     compile rootProject.libraries.retrofit
