@@ -85,7 +85,7 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
 
             @Override
             public void onNext(Categories model) {
-                view.addNavigationDrawerSubmenuCategories(model.getDescription(), model.getListing());
+                view.setNavigationDrawerSubmenuCategories(model.getDescription(), model.getListing());
                 view.displayContent();
                 openNavigationDrawer();
             }

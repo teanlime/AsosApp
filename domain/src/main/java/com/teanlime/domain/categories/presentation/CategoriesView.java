@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CategoriesView {
 
-    void addNavigationDrawerSubmenuCategories(String categoriesGroup, List<Category> categoryList);
+    void setNavigationDrawerSubmenuCategories(String categoriesGroup, List<Category> categoryList);
 
     boolean isNavigationDrawerOpen();
 

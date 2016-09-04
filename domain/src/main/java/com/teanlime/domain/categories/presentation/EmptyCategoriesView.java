@@ -14,7 +14,7 @@ class EmptyCategoriesView implements CategoriesView {
     }
 
     @Override
-    public void addNavigationDrawerSubmenuCategories(String categoriesGroup, List<Category> categoryList) {
+    public void setNavigationDrawerSubmenuCategories(String categoriesGroup, List<Category> categoryList) {
 
     }
 

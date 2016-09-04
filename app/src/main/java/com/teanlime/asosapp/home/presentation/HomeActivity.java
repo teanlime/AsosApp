@@ -226,8 +226,10 @@ public class HomeActivity extends AsosActivity<HomeActivityComponent> implements
     }
 
     @Override
-    public void addNavigationDrawerSubmenuCategories(String categoriesGroup, List<Category> categoryList) {
-        Log.d(TAG, "addNavigationDrawerSubmenuCategories: " + categoriesGroup + " " + categoryList.toString());
+    public void setNavigationDrawerSubmenuCategories(String categoriesGroup, List<Category> categoryList) {
+        Log.d(TAG, "setNavigationDrawerSubmenuCategories: " + categoriesGroup + " " + categoryList.toString());
+
+        navigationView.getMenu().clear();
 
         final SubMenu subMenu = navigationView.getMenu().addSubMenu(categoriesGroup);
         for (int i = 0; i < categoryList.size(); i++) {
