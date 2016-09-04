@@ -8,6 +8,8 @@ import com.teanlime.domain.categories.usecase.GetCategoriesUseCase;
 
 import javax.inject.Inject;
 
+import static com.teanlime.domain.api.util.Validate.nonNull;
+
 public class CategoriesPresenter extends Presenter<CategoriesView> {
 
     private final GetCategoriesUseCase getCategoriesUseCase;
@@ -15,8 +17,9 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
     @Inject
     CategoriesPresenter(GetCategoriesUseCase getCategoriesUseCase,
                         EmptyCategoriesView emptyCategoriesView) {
+
         super(emptyCategoriesView);
-        this.getCategoriesUseCase = getCategoriesUseCase;
+        this.getCategoriesUseCase = nonNull(getCategoriesUseCase);
     }
 
     public void onCreate(String categoriesGroup) {
@@ -60,13 +63,18 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
         }
     }
 
-    public void onWomenMenuButtonClicked() {
+    public boolean onWomenMenuButtonTouchEvent(boolean actionKey) {
         selectWomenCategory();
+        return actionKey;
     }
 
     private void selectWomenCategory() {
         view.selectWomenCategoryGroup();
         view.deselectMenCategoryGroup();
+        if (view.isLollipop()) {
+            view.selectWomenCategoryGroupLollipopExtra();
+            view.deselectMenCategoryGroupLollipopExtra();
+        }
         requestCategories(CategoriesGroup.WOMEN);
     }
 
@@ -98,13 +106,18 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
         }
     }
 
-    public void onMenMenuButtonClicked() {
+    public boolean onMenMenuButtonTouchEvent(boolean actionKey) {
         selectMenCategory();
+        return actionKey;
     }
 
     private void selectMenCategory() {
         view.selectMenCategoryGroup();
         view.deselectWomenCategoryGroup();
+        if (view.isLollipop()) {
+            view.selectMenCategoryGroupLollipopExtra();
+            view.deselectWomenCategoryGroupLollipopExtra();
+        }
         requestCategories(CategoriesGroup.MEN);
     }
 }

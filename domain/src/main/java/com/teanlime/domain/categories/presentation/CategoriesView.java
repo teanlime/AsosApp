@@ -26,7 +26,17 @@ public interface CategoriesView {
 
     void selectWomenCategoryGroup();
 
+    boolean isLollipop();
+
+    void selectWomenCategoryGroupLollipopExtra();
+
     void deselectMenCategoryGroup();
+
+    void selectMenCategoryGroupLollipopExtra();
+
+    void deselectMenCategoryGroupLollipopExtra();
+
+    void deselectWomenCategoryGroupLollipopExtra();
 
     void selectMenCategoryGroup();
 

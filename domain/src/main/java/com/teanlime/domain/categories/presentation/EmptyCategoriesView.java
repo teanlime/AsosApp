@@ -82,4 +82,29 @@ class EmptyCategoriesView implements CategoriesView {
     public void setSelectedCategoriesGroup(String categoriesGroup) {
 
     }
+
+    @Override
+    public boolean isLollipop() {
+        return false;
+    }
+
+    @Override
+    public void deselectMenCategoryGroupLollipopExtra() {
+
+    }
+
+    @Override
+    public void deselectWomenCategoryGroupLollipopExtra() {
+
+    }
+
+    @Override
+    public void selectMenCategoryGroupLollipopExtra() {
+
+    }
+
+    @Override
+    public void selectWomenCategoryGroupLollipopExtra() {
+
+    }
 }

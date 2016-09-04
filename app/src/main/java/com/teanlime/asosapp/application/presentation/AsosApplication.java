@@ -2,6 +2,7 @@ package com.teanlime.asosapp.application.presentation;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
 
 import com.teanlime.asosapp.application.di.ApplicationComponent;
 import com.teanlime.asosapp.application.di.ApplicationModule;
@@ -30,5 +31,9 @@ public class AsosApplication extends Application {
 
     public ApplicationComponent getComponent() {
         return applicationComponent;
+    }
+
+    public boolean isLollipop() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 }

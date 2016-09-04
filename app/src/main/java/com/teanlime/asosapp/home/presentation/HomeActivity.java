@@ -25,6 +25,7 @@ import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.teanlime.asosapp.R;
+import com.teanlime.asosapp.application.presentation.AsosApplication;
 import com.teanlime.asosapp.base.presentation.AsosActivity;
 import com.teanlime.asosapp.home.di.HomeActivityComponent;
 import com.teanlime.asosapp.home.model.ActivityComponentFlyweight;
@@ -159,33 +160,30 @@ public class HomeActivity extends AsosActivity<HomeActivityComponent> implements
         womenMenuButton = (ToggleButton) headerView.findViewById(R.id.women_button);
         menMenuButton = (ToggleButton) headerView.findViewById(R.id.men_button);
 
-        womenMenuButton.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                presenter.onWomenMenuButtonClicked();
-                return true;
-            }
-            return false;
-        });
+        womenMenuButton.setOnTouchListener((v, event) ->
+                presenter.onWomenMenuButtonTouchEvent(event.getAction() == MotionEvent.ACTION_UP));
 
-        menMenuButton.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                presenter.onMenMenuButtonClicked();
-                return true;
-            }
-            return false;
-        });
+        menMenuButton.setOnTouchListener((v, event) ->
+                presenter.onMenMenuButtonTouchEvent(event.getAction() == MotionEvent.ACTION_UP));
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void selectWomenCategoryGroup() {
         new Handler().post(() -> {
             womenMenuButton.setPressed(true);
             womenMenuButton.setChecked(true);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                womenMenuButton.setElevation(15);
-            }
         });
+    }
+
+    @Override
+    public boolean isLollipop() {
+        return AsosApplication.get(this).isLollipop();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void selectWomenCategoryGroupLollipopExtra() {
+        new Handler().post(() -> womenMenuButton.setElevation(15));
     }
 
     @Override
@@ -193,10 +191,25 @@ public class HomeActivity extends AsosActivity<HomeActivityComponent> implements
         new Handler().post(() -> {
             menMenuButton.setPressed(false);
             menMenuButton.setChecked(false);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                womenMenuButton.setElevation(15);
-            }
         });
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void selectMenCategoryGroupLollipopExtra() {
+        new Handler().post(() -> menMenuButton.setElevation(15));
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void deselectMenCategoryGroupLollipopExtra() {
+        new Handler().post(() -> menMenuButton.setElevation(0));
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void deselectWomenCategoryGroupLollipopExtra() {
+        new Handler().post(() -> womenMenuButton.setElevation(0));
     }
 
     @Override
