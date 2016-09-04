@@ -14,7 +14,9 @@ import butterknife.ButterKnife;
 /**
  * Base activity for shared components
  */
-public abstract class AsosActivity extends AppCompatActivity {
+public abstract class AsosActivity<T> extends AppCompatActivity {
+
+    private T activityComponent;
 
     @Override
     @CallSuper
@@ -24,7 +26,7 @@ public abstract class AsosActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        getActivityComponent();
+        activityComponent = createActivityComponent();
     }
 
     @LayoutRes
@@ -33,10 +35,15 @@ public abstract class AsosActivity extends AppCompatActivity {
     }
 
     @NonNull
-    protected abstract Object getActivityComponent();
+    protected abstract T createActivityComponent();
 
     @Override
     public Object onRetainCustomNonConfigurationInstance() {
         return getActivityComponent();
+    }
+
+    @NonNull
+    public T getActivityComponent() {
+        return activityComponent;
     }
 }

@@ -16,7 +16,7 @@ public class SplashActivity extends AsosActivity {
 
     @NonNull
     @Override
-    public Object getActivityComponent() {
+    public Object createActivityComponent() {
         return 0;
     }
 }

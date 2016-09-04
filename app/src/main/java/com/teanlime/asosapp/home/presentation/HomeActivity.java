@@ -36,7 +36,7 @@ import butterknife.BindView;
 
 import static com.teanlime.asosapp.R.id.drawer;
 
-public class HomeActivity extends AsosActivity implements CategoriesView,
+public class HomeActivity extends AsosActivity<HomeActivityComponent> implements CategoriesView,
         NavigationView.OnNavigationItemSelectedListener {
 
     private static final int DRAWER_GRAVITY = GravityCompat.START;
@@ -66,8 +66,6 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
     @Inject
     CategoriesPresenter presenter;
 
-    private HomeActivityComponent homeActivityComponent;
-
     @NonNull
     public static Intent createStartIntent(@NonNull Context context) {
         return new Intent(context, HomeActivity.class);
@@ -87,11 +85,10 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
 
     @NonNull
     @Override
-    public HomeActivityComponent getActivityComponent() {
-        if (homeActivityComponent == null) {
-            homeActivityComponent = new ActivityComponentFlyweight<>(new HomeActivityComponentFactory()).create(this);
-            homeActivityComponent.inject(this);
-        }
+    public HomeActivityComponent createActivityComponent() {
+        final HomeActivityComponent homeActivityComponent = new ActivityComponentFlyweight<>(new
+                HomeActivityComponentFactory()).create(this);
+        homeActivityComponent.inject(this);
         return homeActivityComponent;
     }
 
