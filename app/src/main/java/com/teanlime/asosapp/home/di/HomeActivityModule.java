@@ -16,8 +16,10 @@ import com.teanlime.data.api.mapper.StringUseCaseExceptionMapper;
 import com.teanlime.data.api.remote.DecoratedRetrofitRemoteService;
 import com.teanlime.data.api.remote.RemoteService;
 import com.teanlime.data.api.remote.rest.retrofit.RetrofitRemoteRestService;
+import com.teanlime.data.api.usecase.CallbackDelegateSubscriberFactory;
 import com.teanlime.data.api.usecase.RxSchedulerFactory;
 import com.teanlime.data.api.usecase.RxUseCaseSubscription;
+import com.teanlime.data.api.usecase.SubscriberFactory;
 import com.teanlime.data.categories.model.repository.CategoriesRepository;
 import com.teanlime.data.categories.model.repository.CategoriesRepositoryMediator;
 import com.teanlime.data.categories.model.repository.local.CategoriesInMemoryLocalRepository;
@@ -29,7 +31,6 @@ import com.teanlime.data.categories.model.response.CategoryModel;
 import com.teanlime.data.categories.model.response.mapper.CategoriesMapper;
 import com.teanlime.data.categories.model.response.mapper.CategoryMapper;
 import com.teanlime.data.categories.usecase.GetCategoriesRepositoryUseCase;
-import com.teanlime.domain.api.usecase.EmptyUseCaseCallback;
 import com.teanlime.domain.api.util.StringUtils;
 import com.teanlime.domain.categories.model.request.CategoriesGroup;
 import com.teanlime.domain.categories.model.response.Categories;
@@ -144,15 +145,15 @@ public class HomeActivityModule {
 
     @PerActivity
     @Provides
-    EmptyUseCaseCallback<Categories, String> emptyUserCallback() {
-        return new EmptyUseCaseCallback<>();
-    }
-
-    @PerActivity
-    @Provides
     RemoteService decoratedRetrofitRemoteService(
             RetrofitRemoteRestService retrofitRemoteRestService) {
 
         return new DecoratedRetrofitRemoteService(retrofitRemoteRestService);
+    }
+
+    @PerActivity
+    @Provides
+    SubscriberFactory<Categories, String> subscriberFactory(Mapper<Throwable, String> useCaseExceptionMapper) {
+        return new CallbackDelegateSubscriberFactory<>(useCaseExceptionMapper);
     }
 }

@@ -18,16 +18,16 @@ import static com.teanlime.domain.api.util.Validate.nonNull;
  */
 public class RxUseCaseSubscription<M, E> {
 
-    private final CallbackSubscriber<M, E> callbackSubscriber;
+    private final SubscriberFactory<M, E> subscriberFactory;
     private final RxSchedulerFactory schedulerFactory;
 
     private Subscription subscription;
 
     @Inject
-    public RxUseCaseSubscription(CallbackSubscriber<M, E> callbackSubscriber,
-                                 RxSchedulerFactory schedulerFactory) {
+    RxUseCaseSubscription(SubscriberFactory<M, E> subscriberFactory,
+                          RxSchedulerFactory schedulerFactory) {
 
-        this.callbackSubscriber = nonNull(callbackSubscriber);
+        this.subscriberFactory = nonNull(subscriberFactory);
         this.schedulerFactory = nonNull(schedulerFactory);
     }
 
@@ -41,7 +41,7 @@ public class RxUseCaseSubscription<M, E> {
         subscription = observable
                 .subscribeOn(schedulerFactory.getExecutionScheduler())
                 .observeOn(schedulerFactory.getPostExecutionScheduler())
-                .subscribe(callbackSubscriber.callback(callback));
+                .subscribe(subscriberFactory.create(callback));
     }
 
     /**

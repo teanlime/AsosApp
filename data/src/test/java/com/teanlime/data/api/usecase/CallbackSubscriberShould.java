@@ -2,7 +2,6 @@ package com.teanlime.data.api.usecase;
 
 import com.annimon.stream.Optional;
 import com.teanlime.data.api.mapper.Mapper;
-import com.teanlime.domain.api.usecase.EmptyUseCaseCallback;
 import com.teanlime.domain.api.usecase.UseCaseCallback;
 
 import org.junit.Before;
@@ -15,12 +14,9 @@ import org.mockito.stubbing.Answer;
 
 import rx.Subscriber;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.same;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -33,16 +29,13 @@ public class CallbackSubscriberShould {
     private static final String ERROR_MESSAGE = "error_message";
     private static final String MODEL = "model_string";
 
-    private CallbackSubscriber<String, String> callbackSubscriber;
-
-    @Mock
-    private EmptyUseCaseCallback<String, String> emptyUseCaseCallback;
-
-    @Mock
-    private UseCaseCallback<String, String> realUseCaseCallback;
+    private CallbackDelegateSubscriber<String, String> callbackDelegateSubscriber;
 
     @Mock
     private Mapper<Throwable, String> useCaseExceptionMapper;
+
+    @Mock
+    private UseCaseCallback<String, String> useCaseCallback;
 
     @Before
     public void setup() {
@@ -51,7 +44,7 @@ public class CallbackSubscriberShould {
     }
 
     private void givenCallbackSubscriber() {
-        callbackSubscriber = new CallbackSubscriber<>(emptyUseCaseCallback, useCaseExceptionMapper);
+        callbackDelegateSubscriber = new CallbackDelegateSubscriber<>(useCaseExceptionMapper, useCaseCallback);
     }
 
     private void givenErrorMapper() {
@@ -65,132 +58,73 @@ public class CallbackSubscriberShould {
     }
 
     @Test(expected = NullPointerException.class)
-    public void throw_NPE_when_created_without_emptyUseCaseCallback() {
+    public void throw_NPE_when_created_without_useCaseCallback() {
         // when
-        new CallbackSubscriber<>(null, useCaseExceptionMapper);
+        new CallbackDelegateSubscriber<>(useCaseExceptionMapper, null);
     }
 
     @Test(expected = NullPointerException.class)
     public void throw_NPE_when_created_without_useCaseExceptionMapper() {
         // when
-        new CallbackSubscriber<>(emptyUseCaseCallback, null);
+        new CallbackDelegateSubscriber<>(null, useCaseCallback);
     }
 
     @Test
-    public void set_emptyUseCaseCallback_as_useCaseCallback() {
+    public void set_useCaseCallback_as_useCaseCallback() {
         // when
-        callbackSubscriber.onCompleted();
+        callbackDelegateSubscriber.onCompleted();
 
         // then
-        verify(emptyUseCaseCallback).onCompleted();
-        verifyNoMoreInteractions(emptyUseCaseCallback);
-        verifyZeroInteractions(realUseCaseCallback);
+        verify(useCaseCallback).onCompleted();
+        verifyNoMoreInteractions(useCaseCallback);
+        verifyZeroInteractions(useCaseCallback);
     }
 
-    @Test
-    public void use_emptyUseCaseCallback_when_setting_null_callback() {
+    @Test(expected = NullPointerException.class)
+    public void remove_callback_once_completed() {
         // given
-        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithNullCallbackSet();
+        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWhichAlreadyCompleted();
 
         // when
         subscriber.onCompleted();
 
         // then
-        verify(emptyUseCaseCallback).onCompleted();
-        verifyNoMoreInteractions(emptyUseCaseCallback);
-        verifyZeroInteractions(realUseCaseCallback);
+        verify(useCaseCallback, times(1)).onCompleted();
     }
 
-    private Subscriber<Optional<String>> givenCallbackSubscriberWithNullCallbackSet() {
-        return callbackSubscriber.callback(null);
+    private Subscriber<Optional<String>> givenCallbackSubscriberWhichAlreadyCompleted() {
+        callbackDelegateSubscriber.onCompleted();
+        return callbackDelegateSubscriber;
     }
 
     @Test
-    public void set_new_callback_correctly() {
-        // given
-        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
-
+    public void delegate_onCompleted_to_useCaseCallback() {
         // when
-        subscriber.onCompleted();
+        callbackDelegateSubscriber.onCompleted();
 
         // then
-        verify(realUseCaseCallback).onCompleted();
-        verifyNoMoreInteractions(realUseCaseCallback);
-        verifyZeroInteractions(emptyUseCaseCallback);
-    }
-
-    private Subscriber<Optional<String>> givenCallbackSubscriberWithRealCallback() {
-        return callbackSubscriber.callback(realUseCaseCallback);
-    }
-
-
-    @Test
-    public void return_this_correctly_in_callback() {
-        // when
-        final Subscriber returnedCallbackSubscriber = callbackSubscriber.callback(realUseCaseCallback);
-
-        // then
-        assertThat(returnedCallbackSubscriber, is(notNullValue()));
-        assertThat(returnedCallbackSubscriber, is(sameInstance(callbackSubscriber)));
-    }
-
-    @Test
-    public void use_emptyUseCaseCallback_when_removing_callback() {
-        // given
-        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
-
-        // when
-        subscriber.onCompleted();
-        subscriber.onCompleted();
-
-        // then
-        // Real use case used first time
-        verify(realUseCaseCallback).onCompleted();
-        // Empty use case used next time
-        verify(emptyUseCaseCallback).onCompleted();
-        verifyNoMoreInteractions(emptyUseCaseCallback);
-    }
-
-    @Test
-    public void delegate_onCreate_to_useCaseCallback() {
-        // given
-        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
-
-        // when
-        subscriber.onCompleted();
-
-        // then
-        verify(realUseCaseCallback).onCompleted();
-        verifyNoMoreInteractions(realUseCaseCallback);
-        verifyZeroInteractions(emptyUseCaseCallback);
+        verify(useCaseCallback).onCompleted();
+        verifyNoMoreInteractions(useCaseCallback);
     }
 
     @Test
     public void delegate_onNext_to_useCaseCallback_when_model_is_present() {
-        // given
-        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
-
         // when
-        subscriber.onNext(Optional.of(MODEL));
+        callbackDelegateSubscriber.onNext(Optional.of(MODEL));
 
         // then
-        verify(realUseCaseCallback).onNext(same(MODEL));
-        verifyNoMoreInteractions(realUseCaseCallback);
-        verifyZeroInteractions(emptyUseCaseCallback);
+        verify(useCaseCallback).onNext(same(MODEL));
+        verifyNoMoreInteractions(useCaseCallback);
     }
 
     @Test
     public void redirect_onNext_to_onError_when_model_is_not_present() {
-        // given
-        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
-
         // when
-        subscriber.onNext(Optional.empty());
+        callbackDelegateSubscriber.onNext(Optional.empty());
 
         // then
-        verify(realUseCaseCallback).onError(same(MODEL_IS_NULL_LOCALISED_ERROR_MESSAGE));
-        verifyNoMoreInteractions(realUseCaseCallback);
-        verifyZeroInteractions(emptyUseCaseCallback);
+        verify(useCaseCallback).onError(same(MODEL_IS_NULL_LOCALISED_ERROR_MESSAGE));
+        verifyNoMoreInteractions(useCaseCallback);
     }
 
     @Test
@@ -199,7 +133,7 @@ public class CallbackSubscriberShould {
         final IllegalArgumentException error = new IllegalArgumentException(ERROR_MESSAGE);
 
         // when
-        callbackSubscriber.onError(error);
+        callbackDelegateSubscriber.onError(error);
 
         // then
         verify(useCaseExceptionMapper).map(same(error));
@@ -207,28 +141,20 @@ public class CallbackSubscriberShould {
 
     @Test
     public void delegate_onError_when_error_can_be_mapped() {
-        // given
-        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
-
         // when
-        subscriber.onError(new IllegalArgumentException(ERROR_MESSAGE));
+        callbackDelegateSubscriber.onError(new IllegalArgumentException(ERROR_MESSAGE));
 
         // then
-        verify(realUseCaseCallback).onError(same(ERROR_MESSAGE));
-        verifyNoMoreInteractions(realUseCaseCallback);
-        verifyZeroInteractions(emptyUseCaseCallback);
+        verify(useCaseCallback).onError(same(ERROR_MESSAGE));
+        verifyNoMoreInteractions(useCaseCallback);
     }
 
     @Test
     public void do_nothing_on_onError_when_error_cannot_be_mapped() {
-        // given
-        final Subscriber<Optional<String>> subscriber = givenCallbackSubscriberWithRealCallback();
-
         // when
-        subscriber.onError(null);
+        callbackDelegateSubscriber.onError(null);
 
         // then
-        verifyZeroInteractions(realUseCaseCallback);
-        verifyZeroInteractions(emptyUseCaseCallback);
+        verifyZeroInteractions(useCaseCallback);
     }
 }

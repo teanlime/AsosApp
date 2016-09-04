@@ -75,6 +75,12 @@ public class HomeActivity extends AsosActivity implements CategoriesView,
         presenter.attachView(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
+    }
+
     @NonNull
     @Override
     public HomeActivityComponent getActivityComponent() {

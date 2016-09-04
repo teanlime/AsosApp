@@ -3,12 +3,11 @@ package com.teanlime.domain.api.presentation;
 public abstract class Presenter<V> {
 
     private final V emptyView;
-    private V view;
+    protected V view;
 
     protected Presenter(V emptyView) {
         this.emptyView = emptyView;
-
-        detachView();
+        this.view = emptyView;
     }
 
     public void detachView() {

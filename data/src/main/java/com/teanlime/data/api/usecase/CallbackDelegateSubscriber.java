@@ -2,10 +2,7 @@ package com.teanlime.data.api.usecase;
 
 import com.annimon.stream.Optional;
 import com.teanlime.data.api.mapper.Mapper;
-import com.teanlime.domain.api.usecase.EmptyUseCaseCallback;
 import com.teanlime.domain.api.usecase.UseCaseCallback;
-
-import javax.inject.Inject;
 
 import rx.Subscriber;
 
@@ -21,32 +18,16 @@ import static com.teanlime.domain.api.util.Validate.nonNull;
  * @param <M> Model type
  * @param <E> Exception type
  */
-class CallbackSubscriber<M, E> extends Subscriber<Optional<M>> {
+class CallbackDelegateSubscriber<M, E> extends Subscriber<Optional<M>> {
 
-    private final EmptyUseCaseCallback<M, E> emptyUseCaseCallback;
     private final Mapper<Throwable, E> useCaseExceptionMapper;
-
     private UseCaseCallback<M, E> useCaseCallback;
 
-    @Inject
-    public CallbackSubscriber(EmptyUseCaseCallback<M, E> emptyUseCaseCallback,
-                              Mapper<Throwable, E> useCaseExceptionMapper) {
+    CallbackDelegateSubscriber(Mapper<Throwable, E> useCaseExceptionMapper,
+                               UseCaseCallback<M, E> useCaseCallback) {
 
         this.useCaseExceptionMapper = nonNull(useCaseExceptionMapper);
-        this.emptyUseCaseCallback = nonNull(emptyUseCaseCallback);
-
-        this.useCaseCallback = emptyUseCaseCallback;
-    }
-
-    /**
-     * Sets a new callback of the Subscriber events
-     *
-     * @param useCaseCallback new callback
-     * @return this
-     */
-    public Subscriber<Optional<M>> callback(UseCaseCallback<M, E> useCaseCallback) {
-        this.useCaseCallback = useCaseCallback == null ? emptyUseCaseCallback : useCaseCallback;
-        return this;
+        this.useCaseCallback = nonNull(useCaseCallback);
     }
 
     /**
@@ -55,7 +36,7 @@ class CallbackSubscriber<M, E> extends Subscriber<Optional<M>> {
     @Override
     public void onCompleted() {
         useCaseCallback.onCompleted();
-        useCaseCallback = emptyUseCaseCallback;
+        useCaseCallback = null;
     }
 
     /**
@@ -81,6 +62,6 @@ class CallbackSubscriber<M, E> extends Subscriber<Optional<M>> {
      */
     @Override
     public void onError(Throwable error) {
-        useCaseExceptionMapper.map(error).ifPresent(message -> useCaseCallback.onError(message));
+        useCaseExceptionMapper.map(error).ifPresent(useCaseCallback::onError);
     }
 }

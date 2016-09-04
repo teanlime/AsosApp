@@ -19,7 +19,6 @@ import rx.schedulers.TestScheduler;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,27 +33,27 @@ public class RxUseCaseSubscriptionShould {
     private RxUseCaseSubscription<String, Integer> rxUseCaseSubscription;
 
     @Mock
-    private CallbackSubscriber<String, Integer> callbackSubscriber;
+    private SubscriberFactory<String, Integer> subscriberFactory;
     @Mock
     private UseCaseCallback<String, Integer> useCaseCallback;
 
 
     @Before
     public void setup() {
-        rxUseCaseSubscription = new RxUseCaseSubscription<>(callbackSubscriber, getTestSchedulerFactory());
-        givenSubscriber();
+        rxUseCaseSubscription = new RxUseCaseSubscription<>(subscriberFactory, getTestSchedulerFactory());
+        givenSubscriberFactory();
     }
 
     private TestSchedulerFactory getTestSchedulerFactory() {
         return new TestSchedulerFactory(postExecutionTestScheduler, executionTestScheduler);
     }
 
-    private void givenSubscriber() {
-        when(callbackSubscriber.callback(any())).thenReturn(subscriber);
+    private void givenSubscriberFactory() {
+        when(subscriberFactory.create(useCaseCallback)).thenReturn(subscriber);
     }
 
     @Test(expected = NullPointerException.class)
-    public void throw_NPE_when_created_without_subscriber() {
+    public void throw_NPE_when_created_without_subscriber_factory() {
         // when
         new RxUseCaseSubscription<>(null, mock(RxSchedulerFactory.class));
     }
@@ -62,7 +61,7 @@ public class RxUseCaseSubscriptionShould {
     @Test(expected = NullPointerException.class)
     public void throw_NPE_when_created_without_scheduler() {
         // when
-        new RxUseCaseSubscription<>(callbackSubscriber, null);
+        new RxUseCaseSubscription<>(subscriberFactory, null);
     }
 
     @Test
@@ -111,7 +110,7 @@ public class RxUseCaseSubscriptionShould {
     }
 
     @Test
-    public void set_callback_on_callback_subscriber() {
+    public void pass_callback_when_creating_subscriber() {
         // given
         final Optional<String> first = Optional.of("first");
 
@@ -119,7 +118,7 @@ public class RxUseCaseSubscriptionShould {
         rxUseCaseSubscription.subscribe(Observable.just(first), useCaseCallback);
 
         // then
-        verify(callbackSubscriber).callback(useCaseCallback);
+        verify(subscriberFactory).create(useCaseCallback);
     }
 
     @Test

@@ -22,12 +22,14 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
     @Override
     public void attachView(CategoriesView view) {
         super.attachView(view);
-        view.initViews();
-        view.displayLoading();
-        requestCategories(view);
+
+        this.view.initViews();
+        this.view.displayLoading();
+
+        requestCategories();
     }
 
-    private void requestCategories(final CategoriesView view) {
+    private void requestCategories() {
         getCategoriesUseCase.categoriesGroup(CategoriesGroup.WOMEN).execute(new UseCaseCallback<Categories, String>() {
             @Override
             public void onCompleted() {
@@ -43,5 +45,12 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
                 view.displayCategories(model);
             }
         });
+    }
+
+    @Override
+    public void detachView() {
+        super.detachView();
+
+        getCategoriesUseCase.cancel();
     }
 }
