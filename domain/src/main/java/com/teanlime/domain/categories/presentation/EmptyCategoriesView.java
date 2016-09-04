@@ -57,4 +57,29 @@ class EmptyCategoriesView implements CategoriesView {
     public void processOnBackPressed() {
 
     }
+
+    @Override
+    public void selectWomenCategoryGroup() {
+
+    }
+
+    @Override
+    public void deselectMenCategoryGroup() {
+
+    }
+
+    @Override
+    public void selectMenCategoryGroup() {
+
+    }
+
+    @Override
+    public void deselectWomenCategoryGroup() {
+
+    }
+
+    @Override
+    public void setSelectedCategoriesGroup(String categoriesGroup) {
+
+    }
 }

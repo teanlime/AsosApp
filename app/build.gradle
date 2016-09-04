@@ -60,6 +60,7 @@ dependencies {
     compile rootProject.libraries.butterknife
     compile rootProject.libraries.java_stream_support
     compile rootProject.libraries.android_support_design
+    compile rootProject.libraries.android_percentage_layout
     
     annotationProcessor rootProject.libraries.butterknife_apt
     annotationProcessor rootProject.libraries.dagger2_apt

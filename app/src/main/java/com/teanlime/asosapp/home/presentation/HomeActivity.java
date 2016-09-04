@@ -3,7 +3,10 @@ package com.teanlime.asosapp.home.presentation;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,10 +16,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.teanlime.asosapp.R;
@@ -39,8 +44,10 @@ import static com.teanlime.asosapp.R.id.drawer;
 public class HomeActivity extends AsosActivity<HomeActivityComponent> implements CategoriesView,
         NavigationView.OnNavigationItemSelectedListener {
 
-    private static final int DRAWER_GRAVITY = GravityCompat.START;
+    private static final String SELECTED_CATEGORY_GROUP = "selected_category_group";
     private static final String TAG = "HomeActivity";
+
+    private static final int DRAWER_GRAVITY = GravityCompat.START;
 
     @BindView(R.id.splash_logo)
     ImageView asosLogo;
@@ -66,6 +73,11 @@ public class HomeActivity extends AsosActivity<HomeActivityComponent> implements
     @Inject
     CategoriesPresenter presenter;
 
+    private String selectedCategoryGroup;
+
+    private ToggleButton womenMenuButton;
+    private ToggleButton menMenuButton;
+
     @NonNull
     public static Intent createStartIntent(@NonNull Context context) {
         return new Intent(context, HomeActivity.class);
@@ -75,6 +87,18 @@ public class HomeActivity extends AsosActivity<HomeActivityComponent> implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter.attachView(this);
+        presenter.onCreate(savedInstanceState == null ? null : savedInstanceState.getString(SELECTED_CATEGORY_GROUP));
+    }
+
+    @Override
+    public void setSelectedCategoriesGroup(String selectedCategoryGroup) {
+        this.selectedCategoryGroup = selectedCategoryGroup;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString(SELECTED_CATEGORY_GROUP, selectedCategoryGroup);
     }
 
     @Override
@@ -127,13 +151,67 @@ public class HomeActivity extends AsosActivity<HomeActivityComponent> implements
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    /**
+     * Doesn't work in Butterknife at the moment, needs to be inflated manually
+     */
     private void setupNavigationDrawerHeader() {
         final View headerView = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
-        final ImageView navigationDrawerImage = (ImageView) headerView.findViewById(R.id.navigation_drawer_header_image);
+        womenMenuButton = (ToggleButton) headerView.findViewById(R.id.women_button);
+        menMenuButton = (ToggleButton) headerView.findViewById(R.id.men_button);
 
-        Glide.with(this).load(Uri.parse("file:///android_asset/logo-splash.gif"))
-                .asBitmap()
-                .into(navigationDrawerImage);
+        womenMenuButton.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                presenter.onWomenMenuButtonClicked();
+                return true;
+            }
+            return false;
+        });
+
+        menMenuButton.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                presenter.onMenMenuButtonClicked();
+                return true;
+            }
+            return false;
+        });
+    }
+
+    @Override
+    public void selectWomenCategoryGroup() {
+        new Handler().post(() -> {
+            womenMenuButton.setPressed(true);
+            womenMenuButton.setChecked(true);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                womenMenuButton.setElevation(15);
+            }
+        });
+    }
+
+    @Override
+    public void deselectMenCategoryGroup() {
+        new Handler().post(() -> {
+            menMenuButton.setPressed(false);
+            menMenuButton.setChecked(false);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                womenMenuButton.setElevation(15);
+            }
+        });
+    }
+
+    @Override
+    public void selectMenCategoryGroup() {
+        new Handler().post(() -> {
+            menMenuButton.setPressed(true);
+            menMenuButton.setChecked(true);
+        });
+    }
+
+    @Override
+    public void deselectWomenCategoryGroup() {
+        new Handler().post(() -> {
+            womenMenuButton.setPressed(false);
+            womenMenuButton.setChecked(false);
+        });
     }
 
     @Override

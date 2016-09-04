@@ -23,4 +23,14 @@ public interface CategoriesView {
     void closeNavigationDrawer();
 
     void processOnBackPressed();
+
+    void selectWomenCategoryGroup();
+
+    void deselectMenCategoryGroup();
+
+    void selectMenCategoryGroup();
+
+    void deselectWomenCategoryGroup();
+
+    void setSelectedCategoriesGroup(String categoriesGroup);
 }

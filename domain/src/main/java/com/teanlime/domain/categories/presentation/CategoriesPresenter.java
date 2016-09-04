@@ -19,18 +19,47 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
         this.getCategoriesUseCase = getCategoriesUseCase;
     }
 
-    @Override
-    public void attachView(CategoriesView view) {
-        super.attachView(view);
-
+    public void onCreate(String categoriesGroup) {
         this.view.setupViews();
         this.view.displayLoading();
 
-        requestCategories();
+        toggleInitialCategoriesGroup(categoriesGroup == null ? null : CategoriesGroup.valueOf(categoriesGroup));
     }
 
-    private void requestCategories() {
-        getCategoriesUseCase.categoriesGroup(CategoriesGroup.WOMEN).execute(new UseCaseCallback<Categories, String>() {
+    private void toggleInitialCategoriesGroup(CategoriesGroup categoriesGroup) {
+        if (categoriesGroup == null) {
+            selectWomenCategory();
+            return;
+        }
+
+        switch (categoriesGroup) {
+            case WOMEN:
+                selectWomenCategory();
+                break;
+            case MEN:
+                selectMenCategory();
+                break;
+            default:
+                selectWomenCategory();
+                break;
+        }
+    }
+
+    private void selectWomenCategory() {
+        view.selectWomenCategoryGroup();
+        view.deselectMenCategoryGroup();
+    }
+
+    private void selectMenCategory() {
+        view.selectMenCategoryGroup();
+        view.deselectWomenCategoryGroup();
+        requestCategories(CategoriesGroup.MEN);
+    }
+
+    private void requestCategories(CategoriesGroup categoriesGroup) {
+        view.setSelectedCategoriesGroup(categoriesGroup.name());
+
+        getCategoriesUseCase.categoriesGroup(categoriesGroup).execute(new UseCaseCallback<Categories, String>() {
             @Override
             public void onCompleted() {
             }
@@ -68,5 +97,13 @@ public class CategoriesPresenter extends Presenter<CategoriesView> {
         } else {
             view.processOnBackPressed();
         }
+    }
+
+    public void onWomenMenuButtonClicked() {
+        selectWomenCategory();
+    }
+
+    public void onMenMenuButtonClicked() {
+        selectMenCategory();
     }
 }
