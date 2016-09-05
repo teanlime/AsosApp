@@ -54,13 +54,13 @@ public class HomeActivityModule {
 
     @PerActivity
     @Provides
-    @ActivityContext
     HomeActivity homeActivity() {
         return homeActivity;
     }
 
     @PerActivity
     @Provides
+    @ActivityContext
     Context homeContext() {
         return homeActivity;
     }

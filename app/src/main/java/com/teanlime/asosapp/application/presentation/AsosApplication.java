@@ -3,6 +3,7 @@ package com.teanlime.asosapp.application.presentation;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+import android.support.v4.app.Fragment;
 
 import com.teanlime.asosapp.application.di.ApplicationComponent;
 import com.teanlime.asosapp.application.di.ApplicationModule;
@@ -19,6 +20,10 @@ public class AsosApplication extends Application {
         return (AsosApplication) context.getApplicationContext();
     }
 
+    public static AsosApplication get(Fragment fragment) {
+        return (AsosApplication) fragment.getActivity().getApplicationContext();
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -33,7 +38,7 @@ public class AsosApplication extends Application {
                 .build();
     }
 
-    public ApplicationComponent getComponent() {
+    public ApplicationComponent getApplicationComponent() {
         return applicationComponent;
     }
 

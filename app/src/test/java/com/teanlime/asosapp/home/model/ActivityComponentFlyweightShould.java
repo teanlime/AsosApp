@@ -1,6 +1,7 @@
 package com.teanlime.asosapp.home.model;
 
 import com.teanlime.asosapp.base.model.ActivityComponentFactory;
+import com.teanlime.asosapp.base.model.ActivityComponentFlyweight;
 import com.teanlime.asosapp.base.presentation.AsosActivity;
 
 import org.junit.Before;

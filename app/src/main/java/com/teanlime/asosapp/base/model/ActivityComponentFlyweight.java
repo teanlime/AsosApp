@@ -1,8 +1,7 @@
-package com.teanlime.asosapp.home.model;
+package com.teanlime.asosapp.base.model;
 
 import android.support.annotation.NonNull;
 
-import com.teanlime.asosapp.base.model.ActivityComponentFactory;
 import com.teanlime.asosapp.base.presentation.AsosActivity;
 
 import static com.teanlime.domain.api.util.Validate.nonNull;

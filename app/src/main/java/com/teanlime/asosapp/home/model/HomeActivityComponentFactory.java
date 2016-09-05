@@ -14,7 +14,7 @@ public class HomeActivityComponentFactory implements ActivityComponentFactory<Ho
     public HomeActivityComponent create(Activity activity) {
         return DaggerHomeActivityComponent.builder()
                 .homeActivityModule(new HomeActivityModule(activity))
-                .applicationComponent(AsosApplication.get(activity).getComponent())
+                .applicationComponent(AsosApplication.get(activity).getApplicationComponent())
                 .build();
     }
 }

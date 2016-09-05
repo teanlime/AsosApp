@@ -5,6 +5,7 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.teanlime.asosapp.R;
@@ -17,6 +18,10 @@ import butterknife.ButterKnife;
 public abstract class AsosActivity<T> extends AppCompatActivity {
 
     private T activityComponent;
+
+    public static <T extends AsosActivity> T get(Fragment fragment) {
+        return (T) fragment.getActivity();
+    }
 
     @Override
     @CallSuper
