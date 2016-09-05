@@ -31,8 +31,8 @@ import com.teanlime.asosapp.home.di.HomeActivityComponent;
 import com.teanlime.asosapp.home.model.ActivityComponentFlyweight;
 import com.teanlime.asosapp.home.model.HomeActivityComponentFactory;
 import com.teanlime.domain.categories.model.response.Category;
-import com.teanlime.domain.categories.presentation.CategoriesPresenter;
 import com.teanlime.domain.categories.presentation.CategoriesView;
+import com.teanlime.domain.categories.presentation.HomePresenter;
 
 import java.util.List;
 
@@ -72,7 +72,7 @@ public class HomeActivity extends AsosActivity<HomeActivityComponent> implements
     NavigationView navigationView;
 
     @Inject
-    CategoriesPresenter presenter;
+    HomePresenter presenter;
 
     private String selectedCategoryGroup;
 

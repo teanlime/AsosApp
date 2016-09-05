@@ -31,7 +31,7 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("unchecked")
 @RunWith(MockitoJUnitRunner.class)
-public class CategoriesPresenterShould {
+public class HomePresenterShould {
 
     private static final String WOMEN_CATEGORIES_GROUP = "WOMEN";
     private static final String MEN_CATEGORIES_GROUP = "MEN";
@@ -47,7 +47,7 @@ public class CategoriesPresenterShould {
 
     private final Categories response = new Categories(WOMEN_CATEGORIES_GROUP, categoryList, "sort");
 
-    private CategoriesPresenter categoriesPresenter;
+    private HomePresenter homePresenter;
 
     @Mock
     private EmptyCategoriesView categoriesView;
@@ -57,12 +57,12 @@ public class CategoriesPresenterShould {
 
     @Before
     public void setup() {
-        givenCategoriesProvider();
+        givenHomePresenter();
         givenGetCategoriesUseCase();
     }
 
-    private void givenCategoriesProvider() {
-        categoriesPresenter = new CategoriesPresenter(getCategoriesUseCase, categoriesView);
+    private void givenHomePresenter() {
+        homePresenter = new HomePresenter(getCategoriesUseCase, categoriesView);
     }
 
     private void givenGetCategoriesUseCase() {
@@ -73,13 +73,13 @@ public class CategoriesPresenterShould {
     @Test(expected = NullPointerException.class)
     public void throw_NPE_when_created_without_getCategoriesUseCase() {
         // when
-        new CategoriesPresenter(null, categoriesView);
+        new HomePresenter(null, categoriesView);
     }
 
     @Test
     public void setupViews_and_displayLoading_in_onCreate() {
         // when
-        categoriesPresenter.onCreate(NO_CATEGORIES_GROUP);
+        homePresenter.onCreate(NO_CATEGORIES_GROUP);
 
         // then
         final InOrder inOrder = inOrder(categoriesView, categoriesView);
@@ -90,7 +90,7 @@ public class CategoriesPresenterShould {
     @Test
     public void set_WOMEN_category_if_no_category_provided() {
         // when
-        categoriesPresenter.onCreate(NO_CATEGORIES_GROUP);
+        homePresenter.onCreate(NO_CATEGORIES_GROUP);
 
         // then
         verify(categoriesView).setSelectedCategoriesGroup(eq(WOMEN_CATEGORIES_GROUP));
@@ -105,7 +105,7 @@ public class CategoriesPresenterShould {
     @Test
     public void set_WOMEN_category_if_WOMEN_category_provided() {
         // when
-        categoriesPresenter.onCreate(WOMEN_CATEGORIES_GROUP);
+        homePresenter.onCreate(WOMEN_CATEGORIES_GROUP);
 
         // then
         verify(categoriesView).setSelectedCategoriesGroup(eq(WOMEN_CATEGORIES_GROUP));
@@ -120,7 +120,7 @@ public class CategoriesPresenterShould {
     @Test
     public void set_MEN_category_if_MEN_category_provided() {
         // when
-        categoriesPresenter.onCreate(MEN_CATEGORIES_GROUP);
+        homePresenter.onCreate(MEN_CATEGORIES_GROUP);
 
         // then
         verify(categoriesView).setSelectedCategoriesGroup(eq(MEN_CATEGORIES_GROUP));
@@ -135,7 +135,7 @@ public class CategoriesPresenterShould {
     @Test
     public void cancel_getCategoriesUseCase_on_detachView() {
         // when
-        categoriesPresenter.detachView();
+        homePresenter.detachView();
 
         // then
         verify(getCategoriesUseCase).cancel();
@@ -148,7 +148,7 @@ public class CategoriesPresenterShould {
         givenNavigationDrawerIsOpen();
 
         // when
-        categoriesPresenter.onBackPressed();
+        homePresenter.onBackPressed();
 
         // then
         verify(categoriesView).isNavigationDrawerOpen();
@@ -166,7 +166,7 @@ public class CategoriesPresenterShould {
         givenNavigationDrawerIsClosed();
 
         // when
-        categoriesPresenter.onBackPressed();
+        homePresenter.onBackPressed();
 
         // then
         verify(categoriesView).isNavigationDrawerOpen();
@@ -181,7 +181,7 @@ public class CategoriesPresenterShould {
     @Test
     public void select_women_category_when_navigation_drawer_option_selected() {
         // when
-        categoriesPresenter.onWomenMenuButtonTouchEvent(NO_ACTION_KEY);
+        homePresenter.onWomenMenuButtonTouchEvent(NO_ACTION_KEY);
 
         // then
         verify(categoriesView).setSelectedCategoriesGroup(eq(WOMEN_CATEGORIES_GROUP));
@@ -196,7 +196,7 @@ public class CategoriesPresenterShould {
     @Test
     public void select_men_category_when_navigation_drawer_option_selected() {
         // when
-        categoriesPresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
+        homePresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
 
         // then
         verify(categoriesView).setSelectedCategoriesGroup(eq(MEN_CATEGORIES_GROUP));
@@ -214,7 +214,7 @@ public class CategoriesPresenterShould {
         givenGetCategoriesUseCaseFailed();
 
         // when
-        categoriesPresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
+        homePresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
 
         // then
         verify(categoriesView).displayCategoriesError(ERROR);
@@ -236,7 +236,7 @@ public class CategoriesPresenterShould {
         givenGetCategoriesUseCaseIsSuccessful();
 
         // when
-        categoriesPresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
+        homePresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
 
         // then
         verify(categoriesView, times(0)).displayCategoriesError(any());
@@ -259,7 +259,7 @@ public class CategoriesPresenterShould {
         givenGetCategoriesUseCaseIsSuccessful();
 
         // when
-        categoriesPresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
+        homePresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
 
         // then
         verify(categoriesView).isNavigationDrawerOpen();
@@ -273,7 +273,7 @@ public class CategoriesPresenterShould {
         givenGetCategoriesUseCaseIsSuccessful();
 
         // when
-        categoriesPresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
+        homePresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
 
         // then
         verify(categoriesView).isNavigationDrawerOpen();
@@ -283,7 +283,7 @@ public class CategoriesPresenterShould {
     @Test
     public void return_touch_event_absorbed_when_actionKey_pressed_in_onMenMenuButtonTouchEvent() {
         // when
-        final boolean touchEventAbsorbed = categoriesPresenter.onMenMenuButtonTouchEvent(ACTION_KEY);
+        final boolean touchEventAbsorbed = homePresenter.onMenMenuButtonTouchEvent(ACTION_KEY);
 
         // then
         assertThat(touchEventAbsorbed, is(true));
@@ -292,7 +292,7 @@ public class CategoriesPresenterShould {
     @Test
     public void return_touch_event_not_absorbed_when_no_actionKey_pressed_in_onMenMenuButtonTouchEvent() {
         // when
-        final boolean touchEventAbsorbed = categoriesPresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
+        final boolean touchEventAbsorbed = homePresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
 
         // then
         assertThat(touchEventAbsorbed, is(false));
@@ -301,7 +301,7 @@ public class CategoriesPresenterShould {
     @Test
     public void return_touch_event_absorbed_when_actionKey_pressed_in_onWomenMenuButtonTouchEvent() {
         // when
-        final boolean touchEventAbsorbed = categoriesPresenter.onWomenMenuButtonTouchEvent(ACTION_KEY);
+        final boolean touchEventAbsorbed = homePresenter.onWomenMenuButtonTouchEvent(ACTION_KEY);
 
         // then
         assertThat(touchEventAbsorbed, is(true));
@@ -310,7 +310,7 @@ public class CategoriesPresenterShould {
     @Test
     public void return_touch_event_not_absorbed_when_no_actionKey_pressed_in_onMoWomenMenuButtonTouchEvent() {
         // when
-        final boolean touchEventAbsorbed = categoriesPresenter.onWomenMenuButtonTouchEvent(NO_ACTION_KEY);
+        final boolean touchEventAbsorbed = homePresenter.onWomenMenuButtonTouchEvent(NO_ACTION_KEY);
 
         // then
         assertThat(touchEventAbsorbed, is(false));
@@ -322,7 +322,7 @@ public class CategoriesPresenterShould {
         givenViewIsNotLollipop();
 
         // when
-        categoriesPresenter.onWomenMenuButtonTouchEvent(NO_ACTION_KEY);
+        homePresenter.onWomenMenuButtonTouchEvent(NO_ACTION_KEY);
 
         // then
         verify(categoriesView).selectWomenCategoryGroup();
@@ -343,7 +343,7 @@ public class CategoriesPresenterShould {
         givenViewIsNotLollipop();
 
         // when
-        categoriesPresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
+        homePresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
 
         // then
         verify(categoriesView).selectMenCategoryGroup();
@@ -360,7 +360,7 @@ public class CategoriesPresenterShould {
         givenViewIsLollipop();
 
         // when
-        categoriesPresenter.onWomenMenuButtonTouchEvent(NO_ACTION_KEY);
+        homePresenter.onWomenMenuButtonTouchEvent(NO_ACTION_KEY);
 
         // then
         verify(categoriesView).selectWomenCategoryGroup();
@@ -381,7 +381,7 @@ public class CategoriesPresenterShould {
         givenViewIsLollipop();
 
         // when
-        categoriesPresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
+        homePresenter.onMenMenuButtonTouchEvent(NO_ACTION_KEY);
 
         // then
         verify(categoriesView).selectMenCategoryGroup();

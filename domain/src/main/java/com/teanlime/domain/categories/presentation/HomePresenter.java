@@ -10,13 +10,13 @@ import javax.inject.Inject;
 
 import static com.teanlime.domain.api.util.Validate.nonNull;
 
-public class CategoriesPresenter extends Presenter<CategoriesView> {
+public class HomePresenter extends Presenter<CategoriesView> {
 
     private final GetCategoriesUseCase getCategoriesUseCase;
 
     @Inject
-    CategoriesPresenter(GetCategoriesUseCase getCategoriesUseCase,
-                        EmptyCategoriesView emptyCategoriesView) {
+    HomePresenter(GetCategoriesUseCase getCategoriesUseCase,
+                  EmptyCategoriesView emptyCategoriesView) {
 
         super(emptyCategoriesView);
         this.getCategoriesUseCase = nonNull(getCategoriesUseCase);
