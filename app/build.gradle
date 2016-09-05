@@ -21,7 +21,7 @@ android {
         targetSdkVersion(rootProject.targetSdkVersion as int)
         versionCode(rootProject.versionCode as int)
         versionName rootProject.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.teanlime.asosapp.api.test.espresso.AsosAndroidJUnitRunner"
     }
     packagingOptions {
         exclude 'LICENSE.txt'

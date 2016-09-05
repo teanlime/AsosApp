@@ -23,10 +23,14 @@ public class AsosApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        applicationComponent = DaggerApplicationComponent.builder()
+        applicationComponent = createApplicationComponent();
+        applicationComponent.inject(this);
+    }
+
+    protected ApplicationComponent createApplicationComponent() {
+        return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
-        applicationComponent.inject(this);
     }
 
     public ApplicationComponent getComponent() {
