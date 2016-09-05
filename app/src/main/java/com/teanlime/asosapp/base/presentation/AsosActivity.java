@@ -31,7 +31,7 @@ public abstract class AsosActivity<T> extends AppCompatActivity {
 
     @LayoutRes
     protected int getLayoutResource() {
-        return R.layout.activity_content;
+        return R.layout.content;
     }
 
     @NonNull
