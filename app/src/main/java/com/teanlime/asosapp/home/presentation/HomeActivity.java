@@ -28,7 +28,7 @@ import com.teanlime.asosapp.R;
 import com.teanlime.asosapp.application.presentation.AsosApplication;
 import com.teanlime.asosapp.base.model.ActivityComponentFlyweight;
 import com.teanlime.asosapp.base.presentation.AsosActivity;
-import com.teanlime.asosapp.category.presentation.CategoryFragment;
+import com.teanlime.asosapp.categorylisting.presentation.CategoryListingFragment;
 import com.teanlime.asosapp.home.di.HomeActivityComponent;
 import com.teanlime.asosapp.home.model.HomeActivityComponentFactory;
 import com.teanlime.domain.categories.model.response.Category;
@@ -307,7 +307,7 @@ public class HomeActivity extends AsosActivity<HomeActivityComponent> implements
     public void startCategoryFragment(String categoryId) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.content, CategoryFragment.newInstance(categoryId), CATEGORY_FRAGMENT_TAG)
+                .replace(R.id.content, CategoryListingFragment.newInstance(categoryId), CATEGORY_FRAGMENT_TAG)
                 .commit();
     }
 

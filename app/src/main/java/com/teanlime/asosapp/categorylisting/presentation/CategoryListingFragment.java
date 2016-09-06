@@ -1,4 +1,4 @@
-package com.teanlime.asosapp.category.presentation;
+package com.teanlime.asosapp.categorylisting.presentation;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,23 +9,23 @@ import android.widget.TextView;
 import com.teanlime.asosapp.R;
 import com.teanlime.asosapp.base.model.FragmentComponentFlyweight;
 import com.teanlime.asosapp.base.presentation.AsosFragment;
-import com.teanlime.asosapp.category.di.CategoryFragmentComponent;
-import com.teanlime.asosapp.category.model.CategoryFragmentComponentFactory;
+import com.teanlime.asosapp.categorylisting.di.CategoryListingFragmentComponent;
+import com.teanlime.asosapp.categorylisting.model.CategoryListingFragmentComponentFactory;
 
 import butterknife.BindView;
 
-public class CategoryFragment extends AsosFragment<CategoryFragmentComponent> {
+public class CategoryListingFragment extends AsosFragment<CategoryListingFragmentComponent> {
 
     private static final String CATEGORY_ID_BUNDLE = "category_id_bundle";
 
     @BindView(R.id.fragment_category_text)
     TextView text;
 
-    public static CategoryFragment newInstance(String categoryId) {
+    public static CategoryListingFragment newInstance(String categoryId) {
         final Bundle bundle = new Bundle();
         bundle.putString(CATEGORY_ID_BUNDLE, categoryId);
 
-        final CategoryFragment fragment = new CategoryFragment();
+        final CategoryListingFragment fragment = new CategoryListingFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -37,11 +37,11 @@ public class CategoryFragment extends AsosFragment<CategoryFragmentComponent> {
 
     @NonNull
     @Override
-    protected CategoryFragmentComponent createFragmentComponent() {
-        final CategoryFragmentComponent categoryFragmentComponent = new FragmentComponentFlyweight<>(new
-                CategoryFragmentComponentFactory()).create(this);
-        categoryFragmentComponent.inject(this);
-        return categoryFragmentComponent;
+    protected CategoryListingFragmentComponent createFragmentComponent() {
+        final CategoryListingFragmentComponent categoryListingFragmentComponent = new FragmentComponentFlyweight<>(new
+                CategoryListingFragmentComponentFactory()).create(this);
+        categoryListingFragmentComponent.inject(this);
+        return categoryListingFragmentComponent;
     }
 
     @Override
