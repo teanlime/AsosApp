@@ -3,6 +3,9 @@ package com.teanlime.asosapp.categorylisting.presentation;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,8 +15,11 @@ import com.teanlime.asosapp.base.presentation.AsosFragment;
 import com.teanlime.asosapp.categorylisting.di.CategoryListingFragmentComponent;
 import com.teanlime.asosapp.categorylisting.model.CategoryListingFragmentComponentFactory;
 import com.teanlime.domain.categorylisting.model.response.CategoryListing;
+import com.teanlime.domain.categorylisting.model.response.Listings;
 import com.teanlime.domain.categorylisting.presentation.CategoryListingPresenter;
 import com.teanlime.domain.categorylisting.presentation.CategoryListingView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,8 +30,11 @@ public class CategoryListingFragment extends AsosFragment<CategoryListingFragmen
 
     private static final String CATEGORY_ID_BUNDLE = "category_id_bundle";
 
-    @BindView(R.id.fragment_category_text)
+    @BindView(R.id.fragment_category_name)
     TextView text;
+
+    @BindView(R.id.fragment_category_listing_grid)
+    RecyclerView grid;
 
     @Inject
     CategoryListingPresenter presenter;
@@ -81,6 +90,14 @@ public class CategoryListingFragment extends AsosFragment<CategoryListingFragmen
 
     @Override
     public void displayContent(CategoryListing model) {
-        text.setText(model.getDescription());
+        final List<Listings> listings = model.getListings();
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+
+        grid.setHasFixedSize(false);
+        grid.setLayoutManager(gridLayoutManager);
+        grid.setItemAnimator(new DefaultItemAnimator());
+
+        CategoryRecyclerViewAdapter rcAdapter = new CategoryRecyclerViewAdapter(getActivity(), listings);
+        grid.setAdapter(rcAdapter);
     }
 }

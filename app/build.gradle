@@ -69,6 +69,8 @@ dependencies {
     compile rootProject.libraries.java_stream_support
     compile rootProject.libraries.android_support_design
     compile rootProject.libraries.android_percentage_layout
+    compile rootProject.libraries.android_card_view
+    compile rootProject.libraries.android_recycler_view
 
     annotationProcessor rootProject.libraries.butterknife_apt
     annotationProcessor rootProject.libraries.dagger2_apt

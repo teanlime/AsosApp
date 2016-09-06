@@ -46,6 +46,8 @@ ext.libraries = [
         android_support_design   : "com.android.support:design:$androidToolsVersion",
         android_annotations      : "com.android.support:support-annotations:$androidToolsVersion",
         android_percentage_layout: "com.android.support:percent:$androidToolsVersion",
+        android_card_view        : "com.android.support:cardview-v7:$androidToolsVersion",
+        android_recycler_view    : "com.android.support:recyclerview-v7:$androidToolsVersion",
 
         //Glide
         glide                    : 'com.github.bumptech.glide:glide:3.7.0',
@@ -55,16 +57,16 @@ ext.libraries = [
         butterknife_apt          : 'com.jakewharton:butterknife-compiler:8.4.0',
 
         //Java 8 Support
-        java_lambda_support         : 'me.tatarka:gradle-retrolambda:3.3.0-beta4',
-        java_stream_support         : 'com.annimon:stream:1.1.2',
+        java_lambda_support      : 'me.tatarka:gradle-retrolambda:3.3.0-beta4',
+        java_stream_support      : 'com.annimon:stream:1.1.2',
 
         //Dependency Injection
-        dagger2_apt                 : 'com.google.dagger:dagger-compiler:2.5',
-        dagger2                     : 'com.google.dagger:dagger:2.5',
-        java_x_annotations          : 'javax.inject:javax.inject:1',
+        dagger2_apt              : 'com.google.dagger:dagger-compiler:2.5',
+        dagger2                  : 'com.google.dagger:dagger:2.5',
+        java_x_annotations       : 'javax.inject:javax.inject:1',
 
         //Android test
-        android_test_runner         : 'com.android.support.test:runner:0.5',
+        android_test_runner      : 'com.android.support.test:runner:0.5',
         android_test_rules          : 'com.android.support.test:rules:0.5',
         android_test_espresso       : 'com.android.support.test.espresso:espresso-core:2.2.2',
         android_test_espresso_intent: 'com.android.support.test.espresso:espresso-intents:2.2.2'
