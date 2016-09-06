@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.teanlime.asosapp.R;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Base activity for shared components
@@ -18,6 +19,7 @@ import butterknife.ButterKnife;
 public abstract class AsosActivity<T> extends AppCompatActivity {
 
     private T activityComponent;
+    private Unbinder unbinder;
 
     public static <T extends AsosActivity> T get(Fragment fragment) {
         return (T) fragment.getActivity();
@@ -29,7 +31,7 @@ public abstract class AsosActivity<T> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
 
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         activityComponent = createActivityComponent();
     }
@@ -41,6 +43,14 @@ public abstract class AsosActivity<T> extends AppCompatActivity {
 
     @NonNull
     protected abstract T createActivityComponent();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
+    }
 
     @Override
     public Object onRetainCustomNonConfigurationInstance() {

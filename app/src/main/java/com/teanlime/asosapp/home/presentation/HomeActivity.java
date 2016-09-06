@@ -28,6 +28,7 @@ import com.teanlime.asosapp.R;
 import com.teanlime.asosapp.application.presentation.AsosApplication;
 import com.teanlime.asosapp.base.model.ActivityComponentFlyweight;
 import com.teanlime.asosapp.base.presentation.AsosActivity;
+import com.teanlime.asosapp.category.presentation.CategoryFragment;
 import com.teanlime.asosapp.home.di.HomeActivityComponent;
 import com.teanlime.asosapp.home.model.HomeActivityComponentFactory;
 import com.teanlime.domain.categories.model.response.Category;
@@ -46,6 +47,7 @@ public class HomeActivity extends AsosActivity<HomeActivityComponent> implements
         NavigationView.OnNavigationItemSelectedListener {
 
     private static final String SELECTED_CATEGORY_GROUP = "selected_category_group";
+    private static final String CATEGORY_FRAGMENT_TAG = "category_fragment_tag";
     private static final String TAG = "HomeActivity";
 
     private static final int DRAWER_GRAVITY = GravityCompat.START;
@@ -297,25 +299,16 @@ public class HomeActivity extends AsosActivity<HomeActivityComponent> implements
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-
-        closeNavigationDrawer();
+        presenter.onNavigationItemSelected(selectedCategoryGroup, item.getItemId());
         return true;
+    }
+
+    @Override
+    public void startCategoryFragment(String categoryId) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content, CategoryFragment.newInstance(categoryId), CATEGORY_FRAGMENT_TAG)
+                .commit();
     }
 
     @Override

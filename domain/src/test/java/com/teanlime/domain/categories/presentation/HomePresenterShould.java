@@ -391,4 +391,34 @@ public class HomePresenterShould {
         verify(categoriesView, times(0)).selectWomenCategoryGroupLollipopExtra();
         verify(categoriesView, times(0)).deselectMenCategoryGroupLollipopExtra();
     }
+
+    @Test
+    public void close_navigation_drawer_when_failed_to_load_category_selected_from_menu() {
+        // given
+        givenGetCategoriesUseCaseFailed();
+        givenNavigationDrawerIsOpen();
+
+        // when
+        homePresenter.onNavigationItemSelected(WOMEN_CATEGORIES_GROUP, 1);
+
+        // then
+        verify(categoriesView, times(0)).startCategoryFragment(any());
+        verify(categoriesView).isNavigationDrawerOpen();
+        verify(categoriesView).closeNavigationDrawer();
+    }
+
+    @Test
+    public void close_navigation_drawer_and_start_selected_new_category_screen_when_category_selected_from_menu() {
+        // given
+        givenGetCategoriesUseCaseIsSuccessful();
+        givenNavigationDrawerIsOpen();
+
+        // when
+        homePresenter.onNavigationItemSelected(WOMEN_CATEGORIES_GROUP, 1);
+
+        // then
+        verify(categoriesView).startCategoryFragment(categoryList.get(1).getCategoryId());
+        verify(categoriesView).isNavigationDrawerOpen();
+        verify(categoriesView).closeNavigationDrawer();
+    }
 }

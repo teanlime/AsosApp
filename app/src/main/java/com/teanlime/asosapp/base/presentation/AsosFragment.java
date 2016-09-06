@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Base activity for shared components
@@ -18,13 +19,14 @@ import butterknife.ButterKnife;
 public abstract class AsosFragment<T> extends Fragment {
 
     private T fragmentComponent;
+    private Unbinder unbinder;
 
     @CallSuper
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(getLayoutResource(), container);
-        ButterKnife.bind(view);
+        final View view = inflater.inflate(getLayoutResource(), container, false);
+        unbinder = ButterKnife.bind(this, view);
         fragmentComponent = createFragmentComponent();
         return view;
     }
@@ -34,6 +36,14 @@ public abstract class AsosFragment<T> extends Fragment {
 
     @NonNull
     protected abstract T createFragmentComponent();
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
+    }
 
     public T getFragmentComponent() {
         return fragmentComponent;

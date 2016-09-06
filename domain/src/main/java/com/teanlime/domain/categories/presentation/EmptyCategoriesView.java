@@ -79,6 +79,11 @@ class EmptyCategoriesView implements CategoriesView {
     }
 
     @Override
+    public void startCategoryFragment(String categoryId) {
+
+    }
+
+    @Override
     public void setSelectedCategoriesGroup(String categoriesGroup) {
 
     }

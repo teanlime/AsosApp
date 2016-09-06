@@ -43,4 +43,6 @@ public interface CategoriesView {
     void deselectWomenCategoryGroup();
 
     void setSelectedCategoriesGroup(String categoriesGroup);
+
+    void startCategoryFragment(String categoryId);
 }

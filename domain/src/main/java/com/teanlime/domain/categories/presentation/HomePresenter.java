@@ -120,4 +120,31 @@ public class HomePresenter extends Presenter<CategoriesView> {
         }
         requestCategories(CategoriesGroup.MEN);
     }
+
+    public void onNavigationItemSelected(final String selectedCategoryGroup, final int itemId) {
+        final CategoriesGroup categoriesGroup = CategoriesGroup.valueOf(selectedCategoryGroup);
+
+        getCategoriesUseCase.categoriesGroup(categoriesGroup).execute(new UseCaseCallback<Categories, String>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(String exception) {
+                closeNavigationDrawer();
+            }
+
+            @Override
+            public void onNext(Categories model) {
+                closeNavigationDrawer();
+                view.startCategoryFragment(model.getListing().get(itemId).getCategoryId());
+            }
+        });
+    }
+
+    private void closeNavigationDrawer() {
+        if (view.isNavigationDrawerOpen()) {
+            view.closeNavigationDrawer();
+        }
+    }
 }
