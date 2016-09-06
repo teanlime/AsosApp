@@ -1,4 +1,4 @@
-package com.teanlime.domain.category.model.response;
+package com.teanlime.domain.categorylisting.model.response;
 
 import java.util.List;
 

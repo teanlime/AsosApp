@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class ListingsNetwork {
+public class ListingsModel {
 
     @SerializedName("ProductImageUrl")
     @Expose
@@ -43,16 +43,16 @@ public class ListingsNetwork {
     @Expose
     private final Long productId;
 
-    public ListingsNetwork(List<String> productImageUrl,
-                           Boolean hasMoreColours,
-                           BigDecimal basePrice,
-                           String previousPrice,
-                           String currentPrice,
-                           Long productId,
-                           Boolean inSet,
-                           String title,
-                           String brand,
-                           String rrp) {
+    public ListingsModel(List<String> productImageUrl,
+                         Boolean hasMoreColours,
+                         BigDecimal basePrice,
+                         String previousPrice,
+                         String currentPrice,
+                         Long productId,
+                         Boolean inSet,
+                         String title,
+                         String brand,
+                         String rrp) {
 
         this.productImageUrl = productImageUrl;
         this.hasMoreColours = hasMoreColours;
@@ -108,7 +108,7 @@ public class ListingsNetwork {
 
     @Override
     public String toString() {
-        return "ListingsNetwork{" +
+        return "ListingsModel{" +
                 "productImageUrl=" + productImageUrl +
                 ", basePrice=" + basePrice +
                 ", hasMoreColours=" + hasMoreColours +

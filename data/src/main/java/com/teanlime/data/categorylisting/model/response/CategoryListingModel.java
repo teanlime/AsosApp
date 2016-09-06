@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class CategoryListingNetwork {
+public class CategoryListingModel {
 
     @SerializedName("AlsoSearched")
     @Expose
-    private final List<ListingsNetwork> alsoSearched;
+    private final List<ListingsModel> alsoSearched;
     @SerializedName("Listings")
     @Expose
-    private final List<ListingsNetwork> listings;
+    private final List<ListingsModel> listings;
     @SerializedName("Facets")
     @Expose
-    private final List<FacetsNetwork> facets;
+    private final List<FacetsModel> facets;
 
     @SerializedName("Description")
     @Expose
@@ -31,13 +31,13 @@ public class CategoryListingNetwork {
     @Expose
     private final Integer itemCount;
 
-    public CategoryListingNetwork(List<ListingsNetwork> alsoSearched,
-                                  List<ListingsNetwork> listings,
-                                  List<FacetsNetwork> facets,
-                                  String description,
-                                  String redirectUrl,
-                                  Integer itemCount,
-                                  String sortType) {
+    public CategoryListingModel(List<ListingsModel> alsoSearched,
+                                List<ListingsModel> listings,
+                                List<FacetsModel> facets,
+                                String description,
+                                String redirectUrl,
+                                Integer itemCount,
+                                String sortType) {
 
         this.alsoSearched = alsoSearched;
         this.description = description;
@@ -48,15 +48,15 @@ public class CategoryListingNetwork {
         this.facets = facets;
     }
 
-    public List<ListingsNetwork> getAlsoSearched() {
+    public List<ListingsModel> getAlsoSearched() {
         return alsoSearched;
     }
 
-    public List<ListingsNetwork> getListings() {
+    public List<ListingsModel> getListings() {
         return listings;
     }
 
-    public List<FacetsNetwork> getFacets() {
+    public List<FacetsModel> getFacets() {
         return facets;
     }
 
@@ -78,7 +78,7 @@ public class CategoryListingNetwork {
 
     @Override
     public String toString() {
-        return "CategoryListingNetwork{" +
+        return "CategoryListingModel{" +
                 "alsoSearched=" + alsoSearched +
                 ", listings=" + listings +
                 ", facets=" + facets +

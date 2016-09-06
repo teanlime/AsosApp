@@ -2,13 +2,20 @@ package com.teanlime.data.categorylisting.model.response.mapper;
 
 import com.annimon.stream.Optional;
 import com.teanlime.data.api.mapper.Mapper;
-import com.teanlime.data.categorylisting.model.response.FacetValuesNetwork;
-import com.teanlime.domain.category.model.response.FacetValues;
+import com.teanlime.data.categorylisting.model.response.FacetValuesModel;
+import com.teanlime.domain.categorylisting.model.response.FacetValues;
 
-public class FacetsValuesMapper implements Mapper<FacetValuesNetwork, FacetValues> {
+import javax.inject.Inject;
+
+public class FacetsValuesMapper implements Mapper<FacetValuesModel, FacetValues> {
+
+    @Inject
+    public FacetsValuesMapper() {
+
+    }
 
     @Override
-    public Optional<FacetValues> map(FacetValuesNetwork from) {
+    public Optional<FacetValues> map(FacetValuesModel from) {
         if (from == null) {
             return Optional.empty();
         }

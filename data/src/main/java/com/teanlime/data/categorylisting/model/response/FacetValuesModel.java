@@ -3,7 +3,7 @@ package com.teanlime.data.categorylisting.model.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class FacetValuesNetwork {
+public class FacetValuesModel {
 
     @SerializedName("Count")
     @Expose
@@ -15,7 +15,7 @@ public class FacetValuesNetwork {
     @Expose
     private final String id;
 
-    public FacetValuesNetwork(Integer count, String name, String id) {
+    public FacetValuesModel(Integer count, String name, String id) {
         this.count = count;
         this.name = name;
         this.id = id;

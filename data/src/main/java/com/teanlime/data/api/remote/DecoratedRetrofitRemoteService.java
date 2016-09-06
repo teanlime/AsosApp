@@ -2,6 +2,7 @@ package com.teanlime.data.api.remote;
 
 import com.teanlime.data.api.remote.rest.retrofit.RetrofitRemoteRestService;
 import com.teanlime.data.categories.model.response.CategoriesModel;
+import com.teanlime.data.categorylisting.model.response.CategoryListingModel;
 
 import rx.Observable;
 
@@ -23,5 +24,10 @@ public class DecoratedRetrofitRemoteService implements RemoteService {
     @Override
     public Observable<CategoriesModel> getCategories(String categoriesGroupQuery) {
         return retrofitRemoteRestService.getCategories(categoriesGroupQuery);
+    }
+
+    @Override
+    public Observable<CategoryListingModel> getCategoryListing(String categoryId) {
+        return retrofitRemoteRestService.getCategoryListing(categoryId);
     }
 }

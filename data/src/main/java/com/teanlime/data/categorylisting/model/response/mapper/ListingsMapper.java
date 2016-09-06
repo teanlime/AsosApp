@@ -2,13 +2,20 @@ package com.teanlime.data.categorylisting.model.response.mapper;
 
 import com.annimon.stream.Optional;
 import com.teanlime.data.api.mapper.Mapper;
-import com.teanlime.data.categorylisting.model.response.ListingsNetwork;
-import com.teanlime.domain.category.model.response.Listings;
+import com.teanlime.data.categorylisting.model.response.ListingsModel;
+import com.teanlime.domain.categorylisting.model.response.Listings;
 
-public class ListingsMapper implements Mapper<ListingsNetwork, Listings> {
+import javax.inject.Inject;
+
+public class ListingsMapper implements Mapper<ListingsModel, Listings> {
+
+    @Inject
+    public ListingsMapper() {
+
+    }
 
     @Override
-    public Optional<Listings> map(ListingsNetwork from) {
+    public Optional<Listings> map(ListingsModel from) {
         if (from == null) {
             return Optional.empty();
         }

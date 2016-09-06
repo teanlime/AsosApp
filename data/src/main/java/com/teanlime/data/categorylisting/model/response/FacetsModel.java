@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class FacetsNetwork {
+public class FacetsModel {
 
     @SerializedName("FacetValues")
     @Expose
-    private final List<FacetValuesNetwork> facetValues;
+    private final List<FacetValuesModel> facetValues;
     @SerializedName("Sequence")
     @Expose
     private final Integer sequence;
@@ -20,14 +20,14 @@ public class FacetsNetwork {
     @Expose
     private final String id;
 
-    public FacetsNetwork(List<FacetValuesNetwork> facetValues, Integer sequence, String name, String id) {
+    public FacetsModel(List<FacetValuesModel> facetValues, Integer sequence, String name, String id) {
         this.facetValues = facetValues;
         this.sequence = sequence;
         this.name = name;
         this.id = id;
     }
 
-    public List<FacetValuesNetwork> getFacetValues() {
+    public List<FacetValuesModel> getFacetValues() {
         return facetValues;
     }
 
@@ -45,7 +45,7 @@ public class FacetsNetwork {
 
     @Override
     public String toString() {
-        return "FacetsNetwork{" +
+        return "FacetsModel{" +
                 "facetValues=" + facetValues +
                 ", sequence=" + sequence +
                 ", name='" + name + '\'' +

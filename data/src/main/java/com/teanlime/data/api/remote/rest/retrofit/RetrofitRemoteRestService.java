@@ -1,9 +1,11 @@
 package com.teanlime.data.api.remote.rest.retrofit;
 
 import com.teanlime.data.categories.model.response.CategoriesModel;
+import com.teanlime.data.categorylisting.model.response.CategoryListingModel;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -21,8 +23,8 @@ public interface RetrofitRemoteRestService {
     @GET("https://dl.dropboxusercontent.com/u/1559445/ASOS/SampleApi/cats_{categories_group}.json")
     Observable<CategoriesModel> getCategories(@Path("categories_group") String categoriesGroupQuery);
 
-    //@GET("u/1559445/ASOS/SampleApi/anycat_products.json")
-    //Call<List<Product>> getCategoryProducts(@Query("catId") String categoryId);
+    @GET("https://dl.dropboxusercontent.com/u/1559445/ASOS/SampleApi/anycat_products.json")
+    Observable<CategoryListingModel> getCategoryListing(@Query("catid") String categoryId);
 
     //@GET("u/1559445/ASOS/SampleApi/anyproduct_details.json")
     //Call<Product> getProductDetails(@Query("catId") String productId);

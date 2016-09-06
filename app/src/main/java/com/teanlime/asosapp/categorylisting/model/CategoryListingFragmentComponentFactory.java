@@ -11,10 +11,16 @@ import com.teanlime.asosapp.home.presentation.HomeActivity;
 
 public class CategoryListingFragmentComponentFactory implements FragmentComponentFactory<CategoryListingFragmentComponent> {
 
+    private final String categoryId;
+
+    public CategoryListingFragmentComponentFactory(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
     @Override
     public CategoryListingFragmentComponent create(Fragment fragment) {
         return DaggerCategoryListingFragmentComponent.builder()
-                .categoryListingFragmentModule(new CategoryListingFragmentModule(fragment))
+                .categoryListingFragmentModule(new CategoryListingFragmentModule(fragment, categoryId))
                 .homeActivityComponent(AsosActivity.<HomeActivity>get(fragment).getActivityComponent())
                 .build();
     }

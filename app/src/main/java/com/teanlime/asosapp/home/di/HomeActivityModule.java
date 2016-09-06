@@ -145,9 +145,7 @@ public class HomeActivityModule {
 
     @PerActivity
     @Provides
-    RemoteService decoratedRetrofitRemoteService(
-            RetrofitRemoteRestService retrofitRemoteRestService) {
-
+    RemoteService decoratedRetrofitRemoteService(RetrofitRemoteRestService retrofitRemoteRestService) {
         return new DecoratedRetrofitRemoteService(retrofitRemoteRestService);
     }
 

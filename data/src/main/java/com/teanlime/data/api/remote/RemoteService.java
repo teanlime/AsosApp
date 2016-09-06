@@ -1,6 +1,7 @@
 package com.teanlime.data.api.remote;
 
 import com.teanlime.data.categories.model.response.CategoriesModel;
+import com.teanlime.data.categorylisting.model.response.CategoryListingModel;
 
 import rx.Observable;
 
@@ -16,4 +17,6 @@ public interface RemoteService {
      * @return a list of available categories for specified group
      */
     Observable<CategoriesModel> getCategories(String categoriesGroupQuery);
+
+    Observable<CategoryListingModel> getCategoryListing(String categoryId);
 }
