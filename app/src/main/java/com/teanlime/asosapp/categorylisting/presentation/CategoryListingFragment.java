@@ -30,7 +30,7 @@ public class CategoryListingFragment extends AsosFragment<CategoryListingFragmen
 
     private static final String CATEGORY_ID_BUNDLE = "category_id_bundle";
 
-    @BindView(R.id.fragment_category_name)
+    @BindView(R.id.fragment_category_listing_name)
     TextView text;
 
     @BindView(R.id.fragment_category_listing_grid)
@@ -50,7 +50,7 @@ public class CategoryListingFragment extends AsosFragment<CategoryListingFragmen
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_category;
+        return R.layout.fragment_category_listing;
     }
 
     @NonNull
