@@ -11,9 +11,12 @@ import android.widget.TextView;
 
 import com.teanlime.asosapp.R;
 import com.teanlime.asosapp.base.model.FragmentComponentFlyweight;
+import com.teanlime.asosapp.base.presentation.AsosActivity;
 import com.teanlime.asosapp.base.presentation.AsosFragment;
 import com.teanlime.asosapp.categorylisting.di.CategoryListingFragmentComponent;
 import com.teanlime.asosapp.categorylisting.model.CategoryListingFragmentComponentFactory;
+import com.teanlime.asosapp.productdetails.presentation.ProductDetailsFragment;
+import com.teanlime.asosapp.utils.recyclerview.ItemClickSupport;
 import com.teanlime.domain.categorylisting.model.response.CategoryListing;
 import com.teanlime.domain.categorylisting.model.response.Listings;
 import com.teanlime.domain.categorylisting.presentation.CategoryListingPresenter;
@@ -28,12 +31,13 @@ import butterknife.BindView;
 public class CategoryListingFragment extends AsosFragment<CategoryListingFragmentComponent>
         implements CategoryListingView {
 
+    private static final String POSITION_DETAILS_FRAGMENT_TAG = "position_details_fragment_tag";
     private static final String CATEGORY_ID_BUNDLE = "category_id_bundle";
 
     @BindView(R.id.fragment_category_listing_name)
     TextView text;
 
-    @BindView(R.id.fragment_category_listing_grid)
+    @BindView(R.id.fragment_category_listing_grid_item)
     RecyclerView grid;
 
     @Inject
@@ -99,5 +103,21 @@ public class CategoryListingFragment extends AsosFragment<CategoryListingFragmen
 
         CategoryRecyclerViewAdapter rcAdapter = new CategoryRecyclerViewAdapter(getActivity(), listings);
         grid.setAdapter(rcAdapter);
+
+        ItemClickSupport.addTo(grid).setOnItemClickListener((recyclerView, position, v) ->
+                presenter.onProductClicked(position));
+    }
+
+    @Override
+    public void navigateToPositionDetails(Long productId) {
+        final AsosActivity activity = AsosActivity.get(this);
+        if (activity != null) {
+            activity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(POSITION_DETAILS_FRAGMENT_TAG)
+                    .replace(R.id.content, ProductDetailsFragment.newInstance(productId),
+                            POSITION_DETAILS_FRAGMENT_TAG)
+                    .commit();
+        }
     }
 }

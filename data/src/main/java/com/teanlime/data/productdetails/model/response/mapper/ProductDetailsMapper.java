@@ -10,7 +10,14 @@ import com.teanlime.domain.productdetails.model.response.ProductDetails;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class ProductDetailsMapper implements Mapper<ProductDetailsModel, ProductDetails> {
+
+    @Inject
+    public ProductDetailsMapper() {
+
+    }
 
     @Override
     public Optional<ProductDetails> map(ProductDetailsModel from) {

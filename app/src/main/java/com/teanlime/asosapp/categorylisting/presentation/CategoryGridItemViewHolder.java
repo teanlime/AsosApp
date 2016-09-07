@@ -13,10 +13,10 @@ import butterknife.ButterKnife;
 
 public class CategoryGridItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    @BindView(R.id.category_grid_item_price)
+    @BindView(R.id.category_listing_grid_item_price)
     TextView categoryGridItemPrice;
 
-    @BindView(R.id.category_grid_item_image)
+    @BindView(R.id.category_listing_grid_item_image)
     ImageView categoryGridItemImage;
 
     public CategoryGridItemViewHolder(View categoryGridItem) {
@@ -29,4 +29,6 @@ public class CategoryGridItemViewHolder extends RecyclerView.ViewHolder implemen
     public void onClick(View view) {
         Toast.makeText(view.getContext(), "Clicked on: " + getLayoutPosition(), Toast.LENGTH_SHORT).show();
     }
+
+
 }

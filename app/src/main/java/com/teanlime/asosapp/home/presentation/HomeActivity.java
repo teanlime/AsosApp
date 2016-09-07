@@ -308,6 +308,7 @@ public class HomeActivity extends AsosActivity<HomeActivityComponent> implements
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content, CategoryListingFragment.newInstance(categoryId), CATEGORY_FRAGMENT_TAG)
+                .addToBackStack(CATEGORY_FRAGMENT_TAG)
                 .commit();
     }
 

@@ -11,4 +11,6 @@ public interface CategoryListingView {
     void displayError(String exception);
 
     void displayContent(CategoryListing model);
+
+    void navigateToPositionDetails(Long productId);
 }

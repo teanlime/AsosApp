@@ -26,6 +26,11 @@ public class EmptyCategoryListingView implements CategoryListingView {
     }
 
     @Override
+    public void navigateToPositionDetails(Long productId) {
+
+    }
+
+    @Override
     public void displayContent(CategoryListing model) {
 
     }

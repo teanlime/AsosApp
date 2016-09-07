@@ -5,18 +5,18 @@ import com.teanlime.domain.api.usecase.UseCaseCallback;
 import com.teanlime.domain.productdetails.model.response.ProductDetails;
 import com.teanlime.domain.productdetails.usecase.GetProductDetailsUseCase;
 
+import javax.inject.Inject;
+
 public class ProductDetailsPresenter extends Presenter<ProductDetailsView> {
 
     private final GetProductDetailsUseCase getProductDetailsUseCase;
-    private final String productId;
 
+    @Inject
     protected ProductDetailsPresenter(GetProductDetailsUseCase getProductDetailsUseCase,
-                                      ProductDetailsView emptyView,
-                                      String productId) {
+                                      EmptyProductDetailsView emptyView) {
         super(emptyView);
 
         this.getProductDetailsUseCase = getProductDetailsUseCase;
-        this.productId = productId;
     }
 
     public void onViewCreated() {

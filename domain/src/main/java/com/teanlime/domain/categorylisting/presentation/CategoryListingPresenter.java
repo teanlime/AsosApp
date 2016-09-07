@@ -43,4 +43,23 @@ public class CategoryListingPresenter extends Presenter<CategoryListingView> {
             }
         });
     }
+
+    public void onProductClicked(final int productPosition) {
+        getCategoryListingUseCase.execute(new UseCaseCallback<CategoryListing, String>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(String exception) {
+                view.displayError(exception);
+            }
+
+            @Override
+            public void onNext(CategoryListing model) {
+                view.navigateToPositionDetails(model.getListings().get(productPosition).getProductId());
+            }
+        });
+    }
 }
