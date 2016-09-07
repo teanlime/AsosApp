@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import com.teanlime.asosapp.base.model.FragmentComponentFactory;
 import com.teanlime.asosapp.base.presentation.AsosActivity;
 import com.teanlime.asosapp.home.presentation.HomeActivity;
+import com.teanlime.asosapp.productdetails.di.DaggerProductDetailsFragmentComponent;
 import com.teanlime.asosapp.productdetails.di.ProductDetailsFragmentComponent;
 import com.teanlime.asosapp.productdetails.di.ProductDetailsFragmentModule;
 
