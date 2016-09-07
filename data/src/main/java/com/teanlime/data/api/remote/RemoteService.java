@@ -2,6 +2,7 @@ package com.teanlime.data.api.remote;
 
 import com.teanlime.data.categories.model.response.CategoriesModel;
 import com.teanlime.data.categorylisting.model.response.CategoryListingModel;
+import com.teanlime.data.productdetails.model.response.ProductDetailsModel;
 
 import rx.Observable;
 
@@ -19,4 +20,6 @@ public interface RemoteService {
     Observable<CategoriesModel> getCategories(String categoriesGroupQuery);
 
     Observable<CategoryListingModel> getCategoryListing(String categoryId);
+
+    Observable<ProductDetailsModel> getProductDetails(String productId);
 }
