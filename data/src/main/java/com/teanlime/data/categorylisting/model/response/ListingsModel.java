@@ -1,6 +1,5 @@
 package com.teanlime.data.categorylisting.model.response;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
@@ -9,38 +8,33 @@ import java.util.List;
 public class ListingsModel {
 
     @SerializedName("ProductImageUrl")
-    @Expose
     private final List<String> productImageUrl;
 
     @SerializedName("BasePrice")
-    @Expose
     private final BigDecimal basePrice;
 
     @SerializedName("HasMoreColours")
-    @Expose
     private final Boolean hasMoreColours;
+
     @SerializedName("isInSet")
-    @Expose
     private final Boolean inSet;
 
     @SerializedName("PreviousPrice")
-    @Expose
     private final String previousPrice;
+
     @SerializedName("CurrentPrice")
-    @Expose
     private final String currentPrice;
+
     @SerializedName("Title")
-    @Expose
     private final String title;
+
     @SerializedName("Brand")
-    @Expose
     private final String brand;
+
     @SerializedName("RRP")
-    @Expose
     private final String rrp;
 
     @SerializedName("ProductId")
-    @Expose
     private final Long productId;
 
     public ListingsModel(List<String> productImageUrl,

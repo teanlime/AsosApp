@@ -1,6 +1,5 @@
 package com.teanlime.data.categorylisting.model.response;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -8,27 +7,24 @@ import java.util.List;
 public class CategoryListingModel {
 
     @SerializedName("AlsoSearched")
-    @Expose
     private final List<ListingsModel> alsoSearched;
+
     @SerializedName("Listings")
-    @Expose
     private final List<ListingsModel> listings;
+
     @SerializedName("Facets")
-    @Expose
     private final List<FacetsModel> facets;
 
     @SerializedName("Description")
-    @Expose
     private final String description;
+
     @SerializedName("RedirectUrl")
-    @Expose
     private final String redirectUrl;
+
     @SerializedName("SortType")
-    @Expose
     private final String sortType;
 
     @SerializedName("ItemCount")
-    @Expose
     private final Integer itemCount;
 
     public CategoryListingModel(List<ListingsModel> alsoSearched,

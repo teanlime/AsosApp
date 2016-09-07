@@ -1,6 +1,5 @@
 package com.teanlime.data.categories.model.response;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -8,15 +7,12 @@ import java.util.List;
 public class CategoriesModel {
 
     @SerializedName("Listing")
-    @Expose
     private final List<CategoryModel> listing;
 
     @SerializedName("Description")
-    @Expose
     private final String description;
 
     @SerializedName("SortType")
-    @Expose
     private final String sortType;
 
     public CategoriesModel(String description, List<CategoryModel> listing, String sortType) {
