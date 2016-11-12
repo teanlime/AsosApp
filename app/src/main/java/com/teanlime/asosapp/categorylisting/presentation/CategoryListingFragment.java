@@ -1,11 +1,15 @@
 package com.teanlime.asosapp.categorylisting.presentation;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -29,7 +33,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 public class CategoryListingFragment extends AsosFragment<CategoryListingFragmentComponent>
-        implements CategoryListingView {
+        implements CategoryListingView, LoaderManager.LoaderCallbacks<String> {
 
     private static final String POSITION_DETAILS_FRAGMENT_TAG = "position_details_fragment_tag";
     private static final String CATEGORY_ID_BUNDLE = "category_id_bundle";
@@ -106,6 +110,8 @@ public class CategoryListingFragment extends AsosFragment<CategoryListingFragmen
 
         ItemClickSupport.addTo(grid).setOnItemClickListener((recyclerView, position, v) ->
                 presenter.onProductClicked(position));
+
+        getLoaderManager().initLoader(100, null, this);
     }
 
     @Override
@@ -118,6 +124,39 @@ public class CategoryListingFragment extends AsosFragment<CategoryListingFragmen
                     .replace(R.id.content, ProductDetailsFragment.newInstance(productId),
                             POSITION_DETAILS_FRAGMENT_TAG)
                     .commit();
+        }
+    }
+
+    @Override
+    public Loader<String> onCreateLoader(int id, Bundle args) {
+        Log.d("annalog", "loader create");
+        return new MyLoader(getActivity());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<String> loader, String data) {
+        Log.d("annalog", "loader finished");
+    }
+
+    @Override
+    public void onLoaderReset(Loader<String> loader) {
+        Log.d("annalog", "loader reset");
+    }
+
+    private static final class MyLoader extends Loader<String> {
+
+        /**
+         * Stores away the application context associated with context.
+         * Since Loaders can be used across multiple activities it's dangerous to
+         * store the context directly; always use {@link #getContext()} to retrieve
+         * the Loader's Context, don't use the constructor argument directly.
+         * The Context returned by {@link #getContext} is safe to use across
+         * Activity instances.
+         *
+         * @param context used to retrieve the application context.
+         */
+        public MyLoader(Context context) {
+            super(context);
         }
     }
 }
